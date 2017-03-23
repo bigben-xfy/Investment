@@ -1,0 +1,80 @@
+<style>
+    .nav-tabs li{
+        width: 50%;
+    }
+</style>
+
+<div ng-controller="homeController">
+    <div class="row">
+        <div class="col-sm-4">logo</div>
+        <div class="col-sm-8">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    首页
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#/home">首页</a></li>
+                    <li><a href="#/service">我们的服务</a></li>
+                    <li><a href="#/flow">流程介绍</a></li>
+                    <li><a href="#/aboutUs">关于我们</a></li>
+                    <li><a href="#">我的账户</a></li>
+                    <!--<li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 360px; padding: 15px; position: relative;">
+        <div class="swiper-container" home-swiper>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
+                <div class="swiper-slide">Slide 4</div>
+                <div class="swiper-slide">Slide 5</div>
+                <div class="swiper-slide">Slide 6</div>
+                <div class="swiper-slide">Slide 7</div>
+                <div class="swiper-slide">Slide 8</div>
+                <div class="swiper-slide">Slide 9</div>
+                <div class="swiper-slide">Slide 10</div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <button type="button" class="btn btn-default to-login">用户登录</button>
+    </div>
+    <div class="row home-main-container">
+        <div class="col-sm-4">
+            <ul class="list-group">
+                <li class="list-group-item">注册用户</li>
+                <li class="list-group-item">联系我们</li>
+            </ul>
+        </div>
+        <div class="col-sm-8">
+            <div>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" onclick="return false" aria-controls="home" role="tab" data-toggle="tab">交易流程</a></li>
+                    <li role="presentation"><a href="#profile" onclick="return false" aria-controls="profile" role="tab" data-toggle="tab">风险揭示</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">圣诞圣诞粉红色款的交话费的设计费会计师</div>
+                    <div role="tabpanel" class="tab-pane" id="profile">的健身房山东矿机发时间段快捷方式</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+

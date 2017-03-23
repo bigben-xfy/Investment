@@ -28,6 +28,10 @@
 		            url: '/transactionHistory',
 		            templateUrl: 'src/template/action/view/transactionHistory.html?v' + (+new Date())
 	            })
+	            .state('application', {
+		            url: '/application',
+		            templateUrl: 'src/template/action/view/application.html?v' + (+new Date())
+	            })
         }
     ]);
   

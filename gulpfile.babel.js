@@ -1,15 +1,15 @@
 
-var gulp = require('gulp');
-var del = require('del');
-var uglify = require('gulp-uglify');
-var minifyCss = require('gulp-minify-css');
-var rev = require('gulp-rev');
-var useref = require('gulp-useref');
-var gulpif = require('gulp-if');
-var revReplace = require('gulp-rev-replace');
+import gulp from 'gulp';
+import del from 'del';
+import uglify from 'gulp-uglify';
+import minifyCss from 'gulp-minify-css';
+import rev from 'gulp-rev';
+import useref from 'gulp-useref';
+import gulpif from 'gulp-if';
+import revReplace from 'gulp-rev-replace';
 
 
-gulp.task('html', function () {
+gulp.task('html', () => {
 	return gulp.src('index.html')
 		.pipe(useref())
 		.pipe(gulpif('*.js', uglify()))
@@ -24,21 +24,21 @@ gulp.task('templateHome', function() {
 		.pipe(gulp.dest('./build/src/template/home/view/'));
 });
 
-gulp.task('templateAction', function() {
+gulp.task('templateAction', () => {
 	return gulp.src('./src/template/action/view/*.html')
 		.pipe(gulp.dest('./build/src/template/action/view/'));
-})
+});
 
-gulp.task('assets', function() {
+gulp.task('assets', () => {
 	return gulp.src('./src/assets/**/*')
 		.pipe(gulp.dest('./build/assets/'));
 });
 
-gulp.task('clean', function() {
+gulp.task('clean', () => {
 	return del('./build');
 });
 
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean'], () => {
 	gulp.start('assets', 'templateHome', 'templateAction', 'html');
 });
 

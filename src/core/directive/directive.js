@@ -16,7 +16,9 @@
 						paginationClickable: true,
 						spaceBetween: 100,
 						speed: 600,
-						initialSlide: 0
+						initialSlide: 0,
+						loop: true,
+						autoplay: 30000
 					})
 					
 				},0)

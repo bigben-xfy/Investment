@@ -1,0 +1,243 @@
+
+.dropdown{
+    margin-left: 40%;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+    font-size: 18px;
+    /*background: #fff;*/
+    background-size: 100% 100%;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.slide-bg1{
+    background-image: url("../assets/images/home-bg1.jpg");
+}
+.slide-bg2{
+    background-image: url("../assets/images/home-bg1.jpg");
+}
+.slide-bg3{
+    background-image: url("../assets/images/home-bg3.jpg");
+}
+
+.to-login{
+    background-color: #DB4B2C;
+    font-size: 18px;
+    margin-top: 35px;
+    width: 135px;
+    height: 38px;
+    line-height: 38px;
+    color: #ffffff;
+    text-align: center;
+}
+.home-main-container{
+    height: 430px;
+    margin-bottom: 15px;
+}
+.home-main-container .col-sm-6{
+    height: 100%;
+}
+.information-body{
+    width: 100%;
+    height: 100%;
+    border: #efefef solid 1px;
+    border-radius: 2px;
+    color: #666666;
+    padding: 10px;
+}
+.home-main-container .project{
+    width: 95%;
+    height: 100px;
+    margin-bottom: 10px;
+    border: #efefef solid 1px;
+    border-radius: 2px;
+    color: #666666;
+    padding-left: 10px;
+}
+.home-main-container .project:last-child{
+    margin-bottom: 0;
+}
+
+.tab-content{
+    height: 380px;
+    padding: 10px;
+    border: #efefef solid 1px;
+    border-top: none;
+    border-radius: 2px;
+}
+
+.header{
+    font-size: 16px;
+    color: #E04B2C;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.header .col-sm-3{
+    cursor: pointer;
+}
+
+.swiper-title-container{
+    width: 80%;
+    max-width: 1200px;
+    top: 60px;
+    position: absolute;
+}
+
+.swiper-title-container .title{
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.home-container{
+    width: 80%;
+    max-width: 1200px;
+    min-width: 100px;
+    margin: auto;
+}
+
+.to-page{
+    width: 200px;
+    margin: auto;
+    background-color: #ffffff;
+}
+
+.page-logo{
+    width: 100%;
+    height: 120px;
+    background-size: 100% 100%;
+}
+
+.page-logo1{
+    background-image: url("../assets/images/service.jpg");
+}
+
+.page-logo2{
+    background-image: url("../assets/images/flow.jpg");
+}
+
+.page-logo3{
+    background-image: url("../assets/images/aboutUs.jpg");
+}
+
+.page-logo4{
+    background-image: url("../assets/images/account.jpg");
+}
+
+.page-content{
+    margin: 15px 10px;
+    padding-bottom: 20px;
+}
+
+.page-content .content{
+    height: 40px;
+}
+
+.to-page-btn{
+    color: #E04B2C;
+    border: #E04B2C solid 2px;
+    text-align: center;
+    width: 85px;
+    height: 30px;
+    line-height: 26px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.infographic{
+    width: 100%;
+    background-color: #EDEDED;
+    text-align: center;
+}
+.infographic .title{
+    color: #333333;
+    font-size: 28px;
+    line-height: 80px;
+}
+.infographic-logo{
+    background-image: url("../assets/images/infographic.png");
+    background-size: 100% 100%;
+    width: 100%;
+    height: 170px;
+    margin: 80px auto;
+}
+
+.news{
+    padding-bottom: 30px;
+}
+
+.news .col-sm-4{
+    padding: 0;
+}
+
+.news .col-sm-4:last-child .news-container{
+    float: right;
+}
+
+.news-container{
+    width: 300px;
+    border: #E04B2C solid 1px;
+    overflow: auto;
+    zoom: 1;
+}
+
+.news-container .content{
+    padding: 15px;
+}
+
+.news-container .content a{
+    float: right;
+    margin: 10px 0;
+    color: #E04B2C;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.news-logo{
+    background-image: url("../assets/images/news-logo.jpg");
+    background-size: 100% 100%;
+    width: 100%;
+    height: 280px;
+}
+
+.home-mask{
+    width: 88%;
+    height: 100%;
+    background-color: #cfcfcf;
+    opacity: 0.25;
+    position: absolute;
+    left: 6%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

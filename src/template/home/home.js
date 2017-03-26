@@ -12,27 +12,37 @@
             $stateProvider
                 .state('home', {
                   url: '/home',
-                  templateUrl: 'src/template/home/view/home.html'
+                  templateUrl: 'src/template/home/view/home.html?v' + (+new Date())
                 })
 	            .state('service', {
 		            url: '/service',
-		            templateUrl: 'src/template/home/view/service.html'
+		            templateUrl: 'src/template/home/view/service.html?v' + (+new Date())
 	            })
 	            .state('flow', {
 		            url: '/flow',
-		            templateUrl: 'src/template/home/view/flow.html'
+		            templateUrl: 'src/template/home/view/flow.html?v' + (+new Date())
 	            })
 	            .state('aboutUs', {
 		            url: '/aboutUs',
-		            templateUrl: 'src/template/home/view/aboutUs.html'
+		            templateUrl: 'src/template/home/view/aboutUs.html?v' + (+new Date())
 	            })
             
         }
     ]);
   
     app.controller('homeController',['$scope','$location','$rootScope',function($scope,$location,$rootScope){
+	    $scope.swiperArr = [1, 2, 3];
+     
+	    $scope.init = function () {
+		    $scope.swiperHeight = window.innerWidth / 2.5;
+		
+		    $scope.maskHeight = window.innerHeight - 50;
+	    }
 	    
-      
+	    $scope.toPage = function (url) {
+		    if(url) $location.path(url);
+		    else alert('页面赞缺失');
+	    }
     }]);
     
 }());

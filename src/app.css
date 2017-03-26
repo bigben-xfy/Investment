@@ -1,12 +1,4 @@
 
-.footer{
-    position: relative;
-    width: 100%;
-}
-.footer .col-sm-4{
-    text-align: center;
-}
-
 .row{
     margin: 0;
 }
@@ -17,6 +9,29 @@
     position: relative;
 }
 
+.bottom-logo{
+    text-align: center;
+    line-height: 60px;
+    color: #E04B2C;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.footer{
+    width: 100%;
+    text-align: center;
+    color: #333333;
+}
+
+.footer p {
+    margin: 10px 0;
+}
+
+.foot1{
+    background-color: #E04B2C;
+    line-height: 45px;
+    color: #ffffff;
+}
 
 
 

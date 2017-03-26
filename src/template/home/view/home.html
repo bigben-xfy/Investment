@@ -1,61 +1,135 @@
 
-<div ng-controller="homeController">
-  <div class="row">
-      <div class="col-sm-4">logo</div>
-      <div class="col-sm-8">
-          <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  首页
-                  <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#/home">首页</a></li>
-                  <li><a href="#/service">我们的服务</a></li>
-                  <li><a href="#/flow">流程介绍</a></li>
-                  <li><a href="#/aboutUs">关于我们</a></li>
-                  <li><a href="#">我的账户</a></li>
-                <!--<li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>-->
-              </ul>
-          </div>
-      </div>
-  </div>
-  <div class="row" style="height: 360px; padding: 15px; position: relative;">
-      <div class="swiper-container" home-swiper>
-          <div class="swiper-wrapper">
-              <div class="swiper-slide">Slide 1</div>
-              <div class="swiper-slide">Slide 2</div>
-              <div class="swiper-slide">Slide 3</div>
-              <div class="swiper-slide">Slide 4</div>
-              <div class="swiper-slide">Slide 5</div>
-              <div class="swiper-slide">Slide 6</div>
-              <div class="swiper-slide">Slide 7</div>
-              <div class="swiper-slide">Slide 8</div>
-              <div class="swiper-slide">Slide 9</div>
-              <div class="swiper-slide">Slide 10</div>
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination"></div>
-      </div>
+<div ng-controller="homeController" ng-init="init()" style="position: relative; overflow: auto; zoom: 1;">
+    <div class="row header">
+        <div class="col-sm-6" style="text-align: left">LOGO</div>
+        <div class="col-sm-6">
+            <div class="col-sm-3" ng-click="toPage('service')">我们的服务</div>
+            <div class="col-sm-3" ng-click="toPage('flow')">流程介绍</div>
+            <div class="col-sm-3" ng-click="toPage('aboutUs')">关于我们</div>
+            <div class="col-sm-3" ng-click="toPage('property')">我的账户</div>
+        </div>
+    </div>
 
-      <button type="button" class="btn btn-default to-login">用户登录</button>
-  </div>
-  <div class="row home-main-container">
-      <div class="col-sm-6">
-          <div class="project">
-              <h3>我们的服务</h3>
-              <p>介绍一小段介绍</p>
-          </div>
-          <div class="project"></div>
-          <div class="project"></div>
-          <div class="project"></div>
-      </div>
-      <div class="col-sm-6">
-          <div class="information-body">
-              水果蛋糕的看法和个款到发货个烦得很高客服号地块个很放得开估计得付款韩国款到发货个款到发货该客户端发看结构豪放的高加快递费更健康烦得很看脚后跟款到发货
-          </div>
-      </div>
-  </div>
+    <div class="row" style="width: 100%; height: {{swiperHeight}}px; position: relative">
+        <div class="swiper-container" home-swiper>
+            <div class="swiper-wrapper">
+                <div ng-repeat="item in swiperArr" class="swiper-slide slide-bg{{item}}">
+                    <div class="home-mask"></div>
+                    <div class="swiper-title-container">
+                        <div class="title">
+                            <p>真正属于您的海外物业投资</p>
+                            <p>全程无忧的本地物业管理</p>
+                            <p>承诺担保的美元回报</p>
+                        </div>
+                        <div class="to-login">用户登录</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="row" style="position: relative;">
+        <div class="home-mask"></div>
+        <div class="home-container" style="padding: 40px 0;">
+            <div class="col-sm-3">
+                <div class="to-page">
+                    <div class="page-logo page-logo1"></div>
+                    <div class="page-content">
+                        <h4>我们的服务</h4>
+                        <div class="content">AB Company为您提供创 新稳定的投资方向。</div>
+                        <div class="to-page-btn" ng-click="toPage('service')">了解更多</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="to-page">
+                    <div class="page-logo page-logo2"></div>
+                    <div class="page-content">
+                        <h4>流程介绍</h4>
+                        <div class="content">简洁方便的投资流程保证您的资产安全。</div>
+                        <div class="to-page-btn" ng-click="toPage('flow')">了解更多</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="to-page">
+                    <div class="page-logo page-logo3"></div>
+                    <div class="page-content">
+                        <h4>关于我们</h4>
+                        <div class="content">物业投资将成为您国外资产配置的新选择</div>
+                        <div class="to-page-btn" ng-click="toPage('aboutUs')">了解更多</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="to-page">
+                    <div class="page-logo page-logo4"></div>
+                    <div class="page-content">
+                        <h4>我的账户</h4>
+                        <div class="content">让我们为您的资产增值。</div>
+                        <div class="to-page-btn" ng-click="toPage('property')">了解更多</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row infographic" style="position: relative;">
+        <div class="home-mask"></div>
+        <div class="home-container">
+            <div class="title">快速投资 轻松无忧</div>
+            <div class="infographic-logo"></div>
+        </div>
+    </div>
+
+    <div class="row news" style="position: relative;">
+        <div class="home-mask"></div>
+        <div class="home-container">
+            <h3>公司快讯</h3>
+            <p>物业信息及日常信息</p>
+            <div class="col-sm-4">
+                <div class="news-container">
+                    <div class="news-logo"></div>
+                    <div class="content">
+                        <h4>标题</h4>
+                        <p>Lorem ipsum dolor sit
+                            amet, consectetuer adipi-
+                            scing elit, sed diam
+                            nonummy nibh euismod tin</p>
+                        <a>阅读更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="news-container" style="margin: auto;">
+                    <div class="news-logo"></div>
+                    <div class="content">
+                        <h4>标题</h4>
+                        <p>Lorem ipsum dolor sit
+                            amet, consectetuer adipi-
+                            scing elit, sed diam
+                            nonummy nibh euismod tin</p>
+                        <a>阅读更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="news-container">
+                    <div class="news-logo"></div>
+                    <div class="content">
+                        <h4>标题</h4>
+                        <p>Lorem ipsum dolor sit
+                            amet, consectetuer adipi-
+                            scing elit, sed diam
+                            nonummy nibh euismod tin</p>
+                        <a>阅读更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 

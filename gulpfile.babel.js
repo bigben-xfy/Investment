@@ -39,7 +39,7 @@ gulp.task('assets', ['images'], () => {
 gulp.task('images', () => {
 	return gulp.src('./src/assets/images/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./build/images'));
+		.pipe(gulp.dest('./build/assets/images'));
 });
 
 gulp.task('clean', () => {

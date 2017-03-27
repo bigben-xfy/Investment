@@ -26,6 +26,14 @@
 		            url: '/aboutUs',
 		            templateUrl: 'src/template/home/view/aboutUs.html?v' + (+new Date())
 	            })
+	            .state('login', {
+		            url: '/login',
+		            templateUrl: 'src/template/home/view/login.html?v' + (+new Date())
+	            })
+	            .state('register', {
+		            url: '/register',
+		            templateUrl: 'src/template/home/view/register.html?v' + (+new Date())
+	            })
             
         }
     ]);

@@ -109,6 +109,7 @@
     color: #ffffff;
     font-size: 24px;
     font-weight: bolder;
+    margin-top: 100px;
 }
 
 .home-container{
@@ -176,6 +177,7 @@
     color: #333333;
     font-size: 28px;
     line-height: 80px;
+    font-weight: bolder;
 }
 .infographic-logo{
     background-image: url("../assets/images/infographic.png");
@@ -187,6 +189,10 @@
 
 .news{
     padding-bottom: 30px;
+}
+
+.news h3{
+    font-weight: bolder;
 }
 
 .news .col-sm-4{
@@ -232,6 +238,66 @@
     left: 6%;
 }
 
+
+.nav-tabs li{
+    width: 20%;
+    text-align: center;
+}
+
+.service-logo{
+    width: 100%;
+    background-size: cover;
+}
+
+.tab-container{
+    width: 80%;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+}
+
+.tab-container .tab-content{
+    background-color: #F4F4F4;
+}
+
+.tab-container li{
+    margin-right: 5px;
+}
+
+.tab-container li a{
+    background-color: #DA4D30;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.nav > li > a:hover{
+    color: #ffffff;
+    background-color: #DA4D30;
+    border: none;
+    border-bottom: #DA4D30 solid 1px;
+}
+
+.nav-tabs > li.active > a:hover{
+    background-color: #F4F4F4;
+    color: #DA4D30;
+    border: none;
+    border-bottom: #F4F4F4 solid 1px;
+}
+
+.tab-container li.active a{
+    background-color: #F4F4F4;
+    color: #DA4D30;
+}
+
+.service-title{
+    font-size: 40px;
+    font-weight: bolder;
+    position: absolute;
+    left: 12%;
+    bottom: 530px;
+    color: #DA4D30;
+}
 
 
 

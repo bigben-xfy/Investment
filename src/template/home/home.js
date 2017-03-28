@@ -52,6 +52,20 @@
 		    else alert('页面赞缺失');
 	    }
     }]);
+	
+	app.controller('loginController',['$scope','$location','$rootScope',function($scope,$location,$rootScope){
+		
+		$scope.init = function () {
+			$scope.bgHeight = window.outerHeight - 50;
+		}
+	}]);
+	
+	app.controller('registerController',['$scope','$location','$rootScope',function($scope,$location,$rootScope){
+		
+		$scope.init = function () {
+			$scope.bgHeight = window.outerHeight - 50;
+		}
+	}]);
     
 }());
 

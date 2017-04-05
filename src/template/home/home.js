@@ -56,7 +56,31 @@
 	app.controller('loginController',['$scope','$location','$rootScope',function($scope,$location,$rootScope){
 		
 		$scope.init = function () {
+			if(sessionStorage.getItem('userInfo')) $scope.toPage('property');
+			
 			$scope.bgHeight = window.outerHeight - 50;
+			$scope.userEmail = localStorage.getItem('userName');
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.login = function () {
+			if(!$scope.userEmail || !$scope.userPassword) {
+				alert('账号密码不能为空');
+				return false;
+			}
+			
+			if($scope.rememberUser){
+				localStorage.setItem('userName', $scope.userEmail);
+			}
+			
+			sessionStorage.setItem('userInfo', {
+				username: $scope.userEmail
+			});
+			$scope.toPage('property');
 		}
 	}]);
 	
@@ -64,6 +88,11 @@
 		
 		$scope.init = function () {
 			$scope.bgHeight = window.outerHeight - 50;
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
 		}
 	}]);
     

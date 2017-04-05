@@ -34,6 +34,14 @@
 	            })
         }
     ]);
+	
+	app.factory('action_api',['$resource', 'Constants', function($resource, Constants){
+		return $resource("",{},
+			{
+				getProperties: {method:"get", url: Constants.host + '/api/properties'},
+				getInvestments: {method:"get", url: Constants.host + '/api/investments'}
+			})
+	}]);
   
     app.controller('actionController',['$scope','$location','$rootScope',function($scope,$location,$rootScope){
 	    $scope.testArr = [1,2,3,4,5,6,7,8];
@@ -43,6 +51,69 @@
 		    else alert('页面赞缺失');
 	    }
     }]);
+	
+	app.controller('propertyController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = sessionStorage.getItem('userInfo');
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			action_api.getProperties({
+				page: 1,
+				limit: 100,
+				sort: 'price-asc'
+			}, function (result) {
+				$scope.propertyList = result.data;
+				$scope.properrtyCount = result.pagination.total;
+			});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+	}]);
+	
+	app.controller('investmentController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = sessionStorage.getItem('userInfo');
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			action_api.getInvestments({
+				page: 1,
+				limit: 100
+			}, function (result) {
+				$scope.investmentList = result.data;
+				//$scope.properrtyCount = result.pagination.total;
+			});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+	}]);
     
 }());
 

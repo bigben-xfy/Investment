@@ -74,7 +74,9 @@
 
 <div ng-controller="registerController" ng-init="init()" style="position: relative; overflow: auto; zoom: 1;">
     <div class="row header">
-        <div class="col-sm-6" style="text-align: left">LOGO</div>
+        <div class="col-sm-6" style="text-align: left">
+            <span ng-click="toPage('home')" style="cursor: pointer;">LOGO</span>
+        </div>
         <div class="col-sm-6">
             <div class="col-sm-3" ng-click="toPage('service')">我们的服务</div>
             <div class="col-sm-3" ng-click="toPage('flow')">流程介绍</div>
@@ -84,7 +86,7 @@
     </div>
 
     <div class="login-container" style="height: {{bgHeight}}px;">
-        <div class="login-mask" ></div>
+        <!--<div class="login-mask" ></div>-->
 
         <div class="register-content">
             <div class="left-content">

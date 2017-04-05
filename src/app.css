@@ -1,4 +1,8 @@
 
+body{
+    color: #333333;
+}
+
 .row{
     margin: 0;
 }
@@ -31,6 +35,11 @@
     background-color: #E04B2C;
     line-height: 45px;
     color: #ffffff;
+}
+
+.clear-fix{
+    overflow: auto;
+    zoom: 1;
 }
 
 

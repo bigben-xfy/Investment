@@ -26,6 +26,18 @@
 		}
 	}]);
 	
+	app.directive('sliderBar',['$location', function ($location) {
+		return{
+			restrict: 'A',
+			link:function(scope, element, attr){
+				$(element).find('ul li').on('click', function (e) {
+					var _element = $(e.target);
+					$location.path(_element.data('url'));
+				});
+			}
+		}
+	}]);
+	
 }());
 
 

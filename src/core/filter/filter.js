@@ -7,7 +7,7 @@
 	
 	app.filter('numberToMoney', function(){
 		return function(input){
-			return input
+			return input.replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
 		}
 	});
 }());

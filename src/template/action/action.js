@@ -39,7 +39,8 @@
 		return $resource("",{},
 			{
 				getProperties: {method:"get", url: Constants.host + '/api/properties'},
-				getInvestments: {method:"get", url: Constants.host + '/api/investments'}
+				getInvestments: {method:"get", url: Constants.host + '/api/investments'},
+				getDebenture: {method:"get", url: Constants.host + '/api/products'}
 			})
 	}]);
   
@@ -101,6 +102,97 @@
 			}, function (result) {
 				$scope.investmentList = result.data;
 				//$scope.properrtyCount = result.pagination.total;
+			});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+	}]);
+	
+	app.controller('debentureController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = sessionStorage.getItem('userInfo');
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			action_api.getDebenture({
+				page: 1,
+				limit: 100
+			}, function (result) {
+				$scope.debentureList = result.data;
+				//$scope.properrtyCount = result.pagination.total;
+			});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+	}]);
+	
+	app.controller('collectionController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = sessionStorage.getItem('userInfo');
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			action_api.getInvestments({
+				page: 1,
+				limit: 100
+			}, function (result) {
+				$scope.investmentList = result.data;
+			});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+	}]);
+	
+	app.controller('historyController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = sessionStorage.getItem('userInfo');
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			action_api.getInvestments({
+				page: 1,
+				limit: 100
+			}, function (result) {
+				$scope.investmentList = result.data;
 			});
 		}
 		

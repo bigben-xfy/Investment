@@ -1,175 +1,61 @@
 
-<style>
-    .table-responsive table tr:first-child{
-        cursor: pointer;
-    }
-</style>
+<div ng-controller="debentureController" ng-init="init()" class="clear-fix">
+    <div class="col-sm-2 slider-bar" slider-bar>
+        <h2 ng-click="toPage('home')">LOGO</h2>
+        <div class="user-header"></div>
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                big ben <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a>编辑资料</a></li>
+                <li ng-click="logout()"><a>退出登录</a></li>
+            </ul>
+        </div>
+        <p>联系电话：13511223344</p>
+        <p>Email:xxx@123.com</p>
 
-<div ng-controller="actionController">
-    <div class="header row">
-        <div class="col-sm-6">
-            公司标志
-        </div>
-        <div class="col-sm-3">
-            <p>联系电话:13512334567</p>
-            <p>Email:xxxxxx@xx.com</p>
-        </div>
-        <div class="col-sm-3">
-            <div class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    big ben <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a>修改个人信息</a></li>
-                    <li><a>修改密码</a></li>
-                    <li><a>修改联系方式</a></li>
-                    <li><a>注销</a></li>
-                </ul>
+        <ul class="action-menu">
+            <li ng-click="toPage('property')">寻找物业</li>
+            <li ng-click="toPage('project')">寻找项目</li>
+            <li class="active">寻找债券投资</li>
+            <li ng-click="toPage('collection')">收藏夹</li>
+            <li ng-click="toPage('transactionHistory')">交易历史</li>
+            <li>详细流程指南</li>
+        </ul>
+    </div>
+    <div class="col-sm-10" style="background-color: #F0F0F0;">
+
+        <div class="header2" style="margin-top: 20px; font-size: 20px;">现有项目</div>
+        <div class="option-selector">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>项目</td>
+                        <td>投资金额(美元)</td>
+                        <td>年回报率</td>
+                        <td>投资周期</td>
+                        <td>状态</td>
+                    </tr>
+                    <tr ng-repeat="debenture in debentureList track by $index">
+                        <td style="text-align: left">
+                            <h5>{{debenture.name}}</h5>
+                            <p style="font-size: 12px">项目简介:{{debenture.description || '暂无简介'}}</p>
+                        </td>
+                        <td>${{debenture.invest || numberToMoney}}</td>
+                        <td>{{debenture.return}}</td>
+                        <td>{{debenture.cycle}}个月</td>
+                        <td>
+                            <p>可选</p>
+                            <div>
+                                <a>+<span>点击收藏</span></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
+
     </div>
 
-    <div class="main-container row">
-        <div class="col-sm-2">
-            <div class="navigation-btn" ng-click="toPage('/property')">寻找物业</div>
-        </div>
-        <div class="col-sm-2">
-            <div class="navigation-btn" ng-click="toPage('/project')">寻找项目</div>
-        </div>
-        <div class="col-sm-2">
-            <div class="navigation-btn" ng-click="toPage('/debenture')">寻找债券投资</div>
-        </div>
-        <div class="col-sm-2">
-            <div class="navigation-btn" ng-click="toPage('/collection')">收藏夹</div>
-        </div>
-        <div class="col-sm-2">
-            <div class="navigation-btn" ng-click="toPage('/transactionHistory')">交易历史</div>
-        </div>
-        <div class="col-sm-2">
-            <div class="navigation-btn" ng-click="toPage()">详细流程指南</div>
-        </div>
-    </div>
-
-    <!--<div class="main-container row option-selector">
-        <h4>现有项目</h4>
-        <div>
-            <div class="col-sm-3">
-                <p>地区/城市</p>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        big ben <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a>a</a></li>
-                        <li><a>b</a></li>
-                        <li><a>c</a></li>
-                        <li><a>d</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <p>价格</p>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        big ben <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a><1</a></li>
-                        <li><a>1-2</a></li>
-                        <li><a>2-3</a></li>
-                        <li><a>3-4</a></li>
-                        <li><a>4-5</a></li>
-                        <li><a>5+</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <p>房间数</p>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        big ben <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a>1</a></li>
-                        <li><a>2</a></li>
-                        <li><a>3</a></li>
-                        <li><a>4</a></li>
-                        <li><a>5+</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <p>类型</p>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        big ben <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a>别墅</a></li>
-                        <li><a>公寓</a></li>
-                        <li><a>商业</a></li>
-                        <li><a>土地</a></li>
-                        <li><a>农场</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
-    <div class="main-container row">
-        <p>债券投资</p>
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <tr class="active">
-                    <td>对象</td>
-                    <td>投资金额</td>
-                    <td>年回报率</td>
-                    <td>投资周期</td>
-                    <td>状态</td>
-                </tr>
-                <tr ng-repeat="item in testArr track by $index" ng-class="{'active': $index % 2 == 1}">
-                    <td>abc</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="paginitor-footer">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="javascript:void(0)" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="javascript:void(0)">1</a></li>
-                    <li><a href="javascript:void(0)">2</a></li>
-                    <li><a href="javascript:void(0)">3</a></li>
-                    <li><a href="javascript:void(0)">4</a></li>
-                    <li><a href="javascript:void(0)">5</a></li>
-                    <li>
-                        <a href="javascript:void(0)" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-

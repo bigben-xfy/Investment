@@ -57,10 +57,11 @@
 		$scope.testArr = [1,2,3,4,5,6,7,8];
 		
 		$scope.init = function () {
-			$scope.userInfo = sessionStorage.getItem('userInfo');
+			$scope.userInfo = $rootScope.userInfo || JSON.parse(sessionStorage.getItem('userInfo'));
 			if(!$scope.userInfo) {
 				$scope.toPage('login');
 			}
+			console.log($scope.userInfo);
 			
 			//$scope.pathName = $location.path().slice(1);
 			

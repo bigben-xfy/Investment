@@ -5,15 +5,15 @@
         <div class="user-header"></div>
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                big ben <span class="caret"></span>
+                {{userInfo.name}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a>编辑资料</a></li>
                 <li ng-click="logout()"><a>退出登录</a></li>
             </ul>
         </div>
-        <p>联系电话：13511223344</p>
-        <p>Email:xxx@123.com</p>
+        <p>联系电话：{{userInfo.phone}}</p>
+        <p>Email:{{userInfo.userName}}</p>
 
         <ul class="action-menu">
             <li ng-click="toPage('property')">寻找物业</li>

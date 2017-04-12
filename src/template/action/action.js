@@ -64,13 +64,19 @@
 			
 			//$scope.pathName = $location.path().slice(1);
 			
+			$scope.getPropertyData(1, 10);
+		}
+		
+		$scope.getPropertyData = function (pageIndex, PageSize) {
 			action_api.getProperties({
-				page: 1,
-				limit: 100,
+				page: pageIndex,
+				limit: PageSize,
 				sort: 'price-asc'
 			}, function (result) {
 				$scope.propertyList = result.data;
-				$scope.properrtyCount = result.pagination.total;
+				$scope.paginationData = result.pagination;
+				
+				$scope.paginationArr = _.range(result.pagination.total_pages);
 			});
 		}
 		

@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="header2">找到{{properrtyCount}}个相符物业</div>
+        <div class="header2">找到{{paginationData.total}}个相符物业</div>
         <div class="option-selector">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -130,6 +130,26 @@
                     </tr>
                 </table>
             </div>
+        </div>
+
+        <div class="paginitor-footer" style="margin-right: 2%;">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="javascript:void(0)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="pageId in paginationArr" ng-class="{active: pageId + 1 == paginationData.current_page}">
+                        <a href="javascript:void(0)" ng-click="getPropertyData(pageId + 1, 10)">{{pageId + 1}}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
         <!--<div class="main-container row">

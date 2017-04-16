@@ -64,7 +64,9 @@
 			
 			//$scope.pathName = $location.path().slice(1);
 			
-			$scope.getPropertyData(1, 10);
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getPropertyData(1, $scope.pageSize);
 		}
 		
 		$scope.getPropertyData = function (pageIndex, PageSize) {
@@ -75,9 +77,31 @@
 			}, function (result) {
 				$scope.propertyList = result.data;
 				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
 				
-				$scope.paginationArr = _.range(result.pagination.total_pages);
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
 			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getPropertyData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getPropertyData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
 		$scope.toPage = function (url) {
@@ -102,13 +126,52 @@
 			
 			//$scope.pathName = $location.path().slice(1);
 			
-			action_api.getInvestments({
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getInvestmentData(1, $scope.pageSize);
+			
+			/*action_api.getInvestments({
 				page: 1,
 				limit: 100
 			}, function (result) {
 				$scope.investmentList = result.data;
 				//$scope.properrtyCount = result.pagination.total;
+			});*/
+		}
+		
+		$scope.getInvestmentData = function (pageIndex, PageSize) {
+			action_api.getInvestments({
+				page: pageIndex,
+				limit: PageSize,
+				sort: 'price-asc'
+			}, function (result) {
+				$scope.investmentList = result.data;
+				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
+				
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
 			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getInvestmentData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getInvestmentData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
 		$scope.toPage = function (url) {

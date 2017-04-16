@@ -136,15 +136,15 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li>
-                        <a href="javascript:void(0)" aria-label="Previous">
+                        <a href="javascript:void(0)" aria-label="Previous" ng-click="previousPage()">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li ng-repeat="pageId in paginationArr" ng-class="{active: pageId + 1 == paginationData.current_page}">
-                        <a href="javascript:void(0)" ng-click="getPropertyData(pageId + 1, 10)">{{pageId + 1}}</a>
+                    <li ng-repeat="pageId in paginationArr" ng-class="{active: pageId == paginationData.current_page}">
+                        <a href="javascript:void(0)" ng-click="getPropertyData(pageId, pageSize)">{{pageId}}</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" aria-label="Next">
+                        <a href="javascript:void(0)" aria-label="Next" ng-click="nextPage()">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -152,54 +152,6 @@
             </nav>
         </div>
 
-        <!--<div class="main-container row">
-            <p>找到xxx个相符物业</p>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <tr class="active">
-                        <td>物业</td>
-                        <td>价格</td>
-                        <td>投资金额(美元)</td>
-                        <td>租金(美元)</td>
-                        <td>年回报率</td>
-                        <td>状态</td>
-                    </tr>
-                    <tr ng-repeat="property in propertyList track by $index" ng-class="{'active': $index % 2 == 1}">
-                        <td>相关介绍</td>
-                        <td>$100,000</td>
-                        <td>$50,000</td>
-                        <td>$2,000</td>
-                        <td>20%</td>
-                        <td>
-                            <p>可选</p>
-                            <div><a>点击收藏</a></div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="paginitor-footer">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                            <a href="javascript:void(0)" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="javascript:void(0)">1</a></li>
-                        <li><a href="javascript:void(0)">2</a></li>
-                        <li><a href="javascript:void(0)">3</a></li>
-                        <li><a href="javascript:void(0)">4</a></li>
-                        <li><a href="javascript:void(0)">5</a></li>
-                        <li>
-                            <a href="javascript:void(0)" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>-->
     </div>
 
 

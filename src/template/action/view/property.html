@@ -46,15 +46,10 @@
                     <p>价格</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <1 <span class="caret"></span>
+                            {{price || '所有'}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a><1</a></li>
-                            <li><a>1-2</a></li>
-                            <li><a>2-3</a></li>
-                            <li><a>3-4</a></li>
-                            <li><a>4-5</a></li>
-                            <li><a>5+</a></li>
+                            <li ng-repeat="priceItem in priceArr track by $index" ng-click="setPrice(priceItem)"><a>{{priceItem || '所有'}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -62,14 +57,10 @@
                     <p>房间数</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            1 <span class="caret"></span>
+                            {{room || '所有'}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a>1</a></li>
-                            <li><a>2</a></li>
-                            <li><a>3</a></li>
-                            <li><a>4</a></li>
-                            <li><a>5+</a></li>
+                            <li ng-repeat="roomItem in roomArr track by $index" ng-click="setRoom(roomItem)"><a>{{roomItem || '所有'}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -77,14 +68,10 @@
                     <p>类型</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            别墅 <span class="caret"></span>
+                            {{house || '所有'}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a>别墅</a></li>
-                            <li><a>公寓</a></li>
-                            <li><a>商业</a></li>
-                            <li><a>土地</a></li>
-                            <li><a>农场</a></li>
+                            <li ng-repeat="houseItem in houseArr track by $index" ng-click="setHouse(houseItem)"><a>{{houseItem || '所有'}}</a></li>
                         </ul>
                     </div>
                 </div>

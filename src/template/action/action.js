@@ -39,8 +39,13 @@
 		return $resource("",{},
 			{
 				getProperties: {method:"get", url: Constants.host + '/api/properties'},
+				getPropertyDetail: {method:"get", url: Constants.host + '/api/properties/:id'},
 				getInvestments: {method:"get", url: Constants.host + '/api/investments'},
-				getDebenture: {method:"get", url: Constants.host + '/api/products'}
+				getDebenture: {method:"get", url: Constants.host + '/api/products'},
+				getCollection: {method:"get", url: Constants.host + '/api/collects'},
+				collectProperty: {method: 'post', url: Constants.host + '/api/collect/properties'},
+				collectInvestment: {method: 'post', url: Constants.host + '/api/collect/investments'},
+				collectDebenture: {method: 'post', url: Constants.host + '/api/collect/products'}
 			})
 	}]);
   
@@ -80,6 +85,17 @@
 			$scope.paginationArr = [];
 			$scope.pageSize = 10;
 			$scope.getPropertyData(1, $scope.pageSize);
+			
+			
+			/*$scope.collectionList = window.localStorage.getItem('collectionList');
+			if($scope.collectionList) {
+				$scope.collectionList = $scope.collectionList.join();
+				_.each($scope.collectionList, function () {
+				
+				})
+			}else {
+				$scope.collectionList = []
+			}*/
 		}
 		
 		$scope.setPrice = function (price) {
@@ -131,6 +147,28 @@
 		$scope.previousPage = function () {
 			if($scope.pageIndex === 1) return false;
 			$scope.getPropertyData($scope.pageIndex - 1, $scope.pageSize);
+		}
+		
+		$scope.collectProperty = function (id, index, isDelete) {
+			action_api.collectProperty({
+				id: id,
+				is_delete: isDelete
+			}, function (result) {
+				if(result.code == 200) {
+					$scope.propertyList[index].collected = $scope.propertyList[index].collected == 1 ? 0 : 1
+					alert(isDelete == 0 ?'收藏成功' : '取消收藏成功');
+				}
+			})
+			//var property = $scope.propertyList[index];
+		}
+		
+		$scope.getPropertyDetail = function (id, index) {
+			/*action_api.getPropertyDetail({
+				id: id
+			}, function (result) {
+				
+			})*/
+			$scope.propertyDetail = $scope.propertyList[index]
 		}
 		
 		$scope.toPage = function (url) {
@@ -203,6 +241,27 @@
 			$scope.getInvestmentData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
+		$scope.getInvestmentDetail = function (id, index) {
+			/*action_api.getPropertyDetail({
+			 id: id
+			 }, function (result) {
+			 
+			 })*/
+			$scope.investmentDetail = $scope.investmentList[index]
+		}
+		
+		$scope.collectInvestment = function (id, index, isDelete) {
+			action_api.collectInvestment({
+				id: id,
+				is_delete: isDelete
+			}, function (result) {
+				if(result.code == 200) {
+					$scope.investmentList[index].collected = $scope.investmentList[index].collected == 1 ? 0 : 1
+					alert(isDelete == 0 ?'收藏成功' : '取消收藏成功');
+				}
+			})
+		}
+		
 		$scope.toPage = function (url) {
 			if(url) $location.path(url);
 			else alert('页面赞缺失');
@@ -273,6 +332,18 @@
 			$scope.getDebentureData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
+		$scope.collectDebenture = function (id, index, isDelete) {
+			action_api.collectDebenture({
+				id: id,
+				is_delete: isDelete
+			}, function (result) {
+				if(result.code == 200) {
+					$scope.debentureList[index].collected = $scope.debentureList[index].collected == 1 ? 0 : 1
+					alert(isDelete == 0 ?'收藏成功' : '取消收藏成功');
+				}
+			})
+		}
+		
 		$scope.toPage = function (url) {
 			if(url) $location.path(url);
 			else alert('页面赞缺失');
@@ -295,12 +366,55 @@
 			
 			//$scope.pathName = $location.path().slice(1);
 			
-			action_api.getInvestments({
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getCollectionData(1, $scope.pageSize);
+			
+			/*action_api.getCollection({
 				page: 1,
 				limit: 100
 			}, function (result) {
-				$scope.investmentList = result.data;
+				$scope.collectionList = result.data;
+			});*/
+		}
+		
+		$scope.getCollectionData = function (pageIndex, PageSize) {
+			action_api.getCollection({
+				page: pageIndex,
+				limit: PageSize
+				//sort: 'price-asc'
+			}, function (result) {
+				$scope.collectionList = result.data;
+				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
+				
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
 			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getCollectionData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getCollectionData($scope.pageIndex - 1, $scope.pageSize);
+		}
+		
+		$scope.buy = function () {
+			console.log($scope.name);
 		}
 		
 		$scope.toPage = function (url) {

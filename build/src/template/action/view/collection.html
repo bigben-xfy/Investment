@@ -26,7 +26,7 @@
     </div>
     <div class="col-sm-10" style="background-color: #F0F0F0;">
 
-        <div class="header2" style="margin-top: 20px; font-size: 20px;">现有项目</div>
+        <div class="header2" style="margin-top: 20px; font-size: 20px;">收藏投资组合</div>
         <div class="option-selector">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -36,31 +36,49 @@
                         <td>投资金额(美元)</td>
                         <td>租金(美元)</td>
                         <td>年回报率</td>
-                        <td>投资周期</td>
+                        <td>投资年限</td>
                         <td>状态</td>
                     </tr>
-                    <tr ng-repeat="investment in investmentList track by $index">
-                        <td>
+                    <tr ng-repeat="collection in collectionList track by $index">
+                        <td ng-if="collection.type == 'property'">
                             <div class="clear-fix">
-                                <div class="property-img" style="background-image: url({{investment.pics[0]}})"></div>
+                                <div class="property-img" style="background-image: url({{collection.source.pics[0]}})"></div>
                                 <div class="property-info">
-                                    <p>年份:{{investment.age}}</p>
-                                    <p>城市:{{investment.city}}</p>
-                                    <p>环境评估等级:{{investment.environment_level}}</p>
+                                    <p>房间数:{{collection.source.room}}</p>
+                                    <p>总面积:{{collection.source.area}}</p>
+                                    <p>建筑年份:{{collection.source.age}}</p>
+                                    <p>城市:{{collection.source.city}}</p>
+                                    <p>环境评估等级:{{collection.source.environment_level}}</p>
                                 </div>
                             </div>
-                            <div class="property-address">项目概述:xxxx</div>
-                            <div class="property-address">地址:{{investment.address}}</div>
+                            <div class="property-address">地址:{{collection.source.address}}</div>
                         </td>
-                        <td>${{investment.price || numberToMoney}}</td>
-                        <td>${{investment.invest || numberToMoney}}</td>
-                        <td>${{investment.rend || numberToMoney}}</td>
-                        <td>{{investment.return}}</td>
-                        <td>{{investment.cycle}}个月</td>
+                        <td ng-if="collection.type == 'investment'">
+                            <div class="clear-fix">
+                                <div class="property-img" style="background-image: url({{collection.source.pics[0]}})"></div>
+                                <div class="property-info">
+                                    <p>年份:{{collection.source.age}}</p>
+                                    <p>城市:{{collection.source.city}}</p>
+                                    <p>环境评估等级:{{collection.source.environment_level}}</p>
+                                </div>
+                            </div>
+                            <div class="property-address">项目概述:{{collection.source.type}}</div>
+                            <div class="property-address">地址:{{collection.source.address}}</div>
+                        </td>
+                        <td style="text-align: left" ng-if="collection.type == 'product'">
+                            <h5>{{collection.source.name}}</h5>
+                            <p style="font-size: 12px">项目简介:{{collection.source.description || '暂无简介'}}</p>
+                        </td>
+
+                        <td>${{collection.source.price || numberToMoney}}</td>
+                        <td>${{collection.source.invest || numberToMoney}}</td>
+                        <td>${{collection.source.rend || numberToMoney}}</td>
+                        <td>{{collection.source.return}}</td>
+                        <td>{{collection.source.cycle}}个月</td>
                         <td>
-                            <p>可选</p>
-                            <div>
-                                <a>+<span>点击收藏</span></a>
+                            <div ng-if="collection.source.state == 'enable'">
+                                <p>可选</p>
+                                <div><a ng-click="" data-toggle="modal" data-target="#myModal">+<span>点击购入</span></a></div>
                             </div>
                         </td>
                     </tr>
@@ -68,6 +86,90 @@
             </div>
         </div>
 
+        <div class="paginitor-footer" style="margin-right: 2%;">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="javascript:void(0)" aria-label="Previous" ng-click="previousPage()">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="pageId in paginationArr" ng-class="{active: pageId == paginationData.current_page}">
+                        <a href="javascript:void(0)" ng-click="getPropertyData(pageId, pageSize)">{{pageId}}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" aria-label="Next" ng-click="nextPage()">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">物业详情</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-model="formData">
+                        <div class="form-group">
+                            <label class="control-label">姓名:</label>
+                            <input type="text" class="form-control" ng-model="name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">生日:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">职业:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">地址:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">房号:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">城市:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">省份:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">国家:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">邮箱:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">购入项目:</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">投资金额(美金):</label>
+                            <input type="text" class="form-control" >
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="buy()">申请购入</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

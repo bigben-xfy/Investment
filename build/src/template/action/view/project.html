@@ -37,9 +37,10 @@
                         <td>年回报率</td>
                         <td>投资周期</td>
                         <td>状态</td>
+                        <td>操作</td>
                     </tr>
                     <tr ng-repeat="investment in investmentList track by $index">
-                        <td>
+                        <td ng-click="getInvestmentDetail(property.id, $index)" data-toggle="modal" data-target="#myModal">
                             <div class="clear-fix">
                                 <div class="property-img" style="background-image: url({{investment.pics[0]}})"></div>
                                 <div class="property-info">
@@ -48,7 +49,7 @@
                                     <p>环境评估等级:{{investment.environment_level}}</p>
                                 </div>
                             </div>
-                            <div class="property-address">项目概述:xxxx</div>
+                            <div class="property-address">项目概述:{{investment.type}}</div>
                             <div class="property-address">地址:{{investment.address}}</div>
                         </td>
                         <td>${{investment.price || numberToMoney}}</td>
@@ -56,10 +57,18 @@
                         <td>{{investment.return}}</td>
                         <td>{{investment.cycle}}个月</td>
                         <td>
-                            <p>可选</p>
+                            <p ng-if="investment.state == 'enable'">可选</p>
+                        </td>
+                        <td>
                             <div>
-                                <a>+<span>点击收藏</span></a>
+                                <a ng-click="collectInvestment(investment.id, $index, investment.collected)">
+                                    +
+                                    <span ng-if="investment.collected == 0">点击收藏</span>
+                                    <span ng-if="investment.collected == 1">取消收藏</span>
+                                </a>
                             </div>
+                            <!--<div><a ng-click="collectInvestment(investment.id, $index)">+<span>点击收藏</span></a></div>-->
+                            <!--<div ng-if="investment.state == 'enable'"><a ng-click=""><span>申请购买</span></a></div>-->
                         </td>
                     </tr>
                 </table>
@@ -86,6 +95,26 @@
             </nav>
         </div>
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">物业详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-img"><img ng-src="{{investmentDetail.pics[0]}}"></div>
+                    <p>年份:{{investmentDetail.age}}</p>
+                    <p>城市:{{investmentDetail.city}}</p>
+                    <p>环境评估等级:{{investmentDetail.environment_level}}</p>
+                    <p>项目概述: {{investmentDetail.type}}</p>
+                    <p>地址:{{investmentDetail.address}}</p>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

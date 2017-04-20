@@ -26,7 +26,7 @@
     </div>
     <div class="col-sm-10" style="background-color: #F0F0F0;">
 
-        <div class="header2" style="margin-top: 20px; font-size: 20px;">现有项目</div>
+        <div class="header2" style="margin-top: 20px; font-size: 20px;">债券投资</div>
         <div class="option-selector">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -36,6 +36,7 @@
                         <td>年回报率</td>
                         <td>投资周期</td>
                         <td>状态</td>
+                        <td>操作</td>
                     </tr>
                     <tr ng-repeat="debenture in debentureList track by $index">
                         <td style="text-align: left">
@@ -46,10 +47,18 @@
                         <td>{{debenture.return}}</td>
                         <td>{{debenture.cycle}}个月</td>
                         <td>
-                            <p>可选</p>
+                            <p ng-if="debenture.state == 'enable'">可选</p>
+                        </td>
+                        <td>
                             <div>
-                                <a>+<span>点击收藏</span></a>
+                                <a ng-click="collectDebenture(debenture.id, $index, debenture.collected)">
+                                    +
+                                    <span ng-if="debenture.collected == 0">点击收藏</span>
+                                    <span ng-if="debenture.collected == 1">取消收藏</span>
+                                </a>
                             </div>
+                            <!--<div><a ng-click="collectInvestment(investment.id, $index)">+<span>点击收藏</span></a></div>-->
+                            <!--<div ng-if="investment.state == 'enable'"><a ng-click=""><span>申请购买</span></a></div>-->
                         </td>
                     </tr>
                 </table>

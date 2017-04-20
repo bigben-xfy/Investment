@@ -89,9 +89,10 @@
                         <td>租金(美元)</td>
                         <td>年回报率</td>
                         <td>状态</td>
+                        <td>操作</td>
                     </tr>
                     <tr ng-repeat="property in propertyList track by $index">
-                        <td>
+                        <td ng-click="getPropertyDetail(property.id, $index)" data-toggle="modal" data-target="#myModal">
                             <div class="clear-fix">
                                 <div class="property-img" style="background-image: url({{property.pics[0]}})"></div>
                                 <div class="property-info">
@@ -109,10 +110,18 @@
                         <td>${{property.rend || numberToMoney}}</td>
                         <td>{{property.return}}</td>
                         <td>
-                            <p>可选</p>
+                            <p ng-if="property.state == 'enable'">可选</p>
+                        </td>
+                        <td>
                             <div>
-                                <a>+<span>点击收藏</span></a>
+                                <a ng-click="collectProperty(property.id, $index, property.collected)">
+                                    +
+                                    <span ng-if="property.collected == 0">点击收藏</span>
+                                    <span ng-if="property.collected == 1">取消收藏</span>
+                                </a>
                             </div>
+                            <!--<div ng-if="property.collected != 0"><a ng-click="collectProperty(property.id, $index)">+<span>取消收藏</span></a></div>-->
+                            <!--<div ng-if="property.state == 'enable'"><a ng-click=""><span>申请购买</span></a></div>-->
                         </td>
                     </tr>
                 </table>
@@ -141,6 +150,30 @@
 
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">物业详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-img"><img ng-src="{{propertyDetail.pics[0]}}"></div>
+                    <p>房间数:{{propertyDetail.room}}</p>
+                    <p>总面积:{{propertyDetail.area}}</p>
+                    <p>建筑年份:{{propertyDetail.age}}</p>
+                    <p>城市:{{propertyDetail.city}}</p>
+                    <p>环境评估等级:{{propertyDetail.environment_level}}</p>
+                    <p>地址:{{property.address}}</p>
+                </div>
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>-->
+            </div>
+        </div>
+    </div>
 
 </div>
 

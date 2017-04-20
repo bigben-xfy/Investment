@@ -146,8 +146,10 @@
 			}
 			
 			home_api.register($scope.formatData, function (result) {
-				if(result.code == 200) alert('注册成功');
-				else alert(result.message + '!' + result.data[0]);
+				if(result.code == 200) {
+					alert('注册成功');
+					$location.path('login');
+				} else alert(result.message + '!' + result.data[0]);
 			});
 		}
 	}]);

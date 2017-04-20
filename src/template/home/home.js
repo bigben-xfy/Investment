@@ -147,6 +147,7 @@
 			
 			home_api.register($scope.formatData, function (result) {
 				if(result.code == 200) {
+					localStorage.setItem('userName', $scope.email);
 					alert('注册成功');
 					$location.path('login');
 				} else alert(result.message + '!' + result.data[0]);

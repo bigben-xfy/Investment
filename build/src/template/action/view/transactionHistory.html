@@ -38,22 +38,13 @@
                         <td>交易日期</td>
                         <td>相关文件</td>
                     </tr>
-                    <tr ng-repeat="investment in investmentList track by $index">
-                        <td>{{$index}}</td>
+                    <tr ng-repeat="history in historyList track by $index">
+                        <td>{{history.id}}</td>
                         <td>
-                            <div class="clear-fix">
-                                <div class="property-img" style="background-image: url({{investment.pics[0]}})"></div>
-                                <div class="property-info">
-                                    <p>年份:{{investment.age}}</p>
-                                    <p>城市:{{investment.city}}</p>
-                                    <p>环境评估等级:{{investment.environment_level}}</p>
-                                </div>
-                            </div>
-                            <div class="property-address">项目概述:xxxx</div>
-                            <div class="property-address">地址:{{investment.address}}</div>
+                            {{history.name}}
                         </td>
-                        <td>${{investment.invest || numberToMoney}}</td>
-                        <td>{{investment.return}}</td>
+                        <td>${{history.invest || numberToMoney}}</td>
+                        <td>{{history.return}}</td>
                         <td>2017年2月1日</td>
                         <td style="font-size: 12px;">
                             <P>1.交易申请</P>
@@ -64,6 +55,26 @@
                     </tr>
                 </table>
             </div>
+        </div>
+
+        <div class="paginitor-footer" style="margin-right: 2%;">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="javascript:void(0)" aria-label="Previous" ng-click="previousPage()">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="pageId in paginationArr" ng-class="{active: pageId == paginationData.current_page}">
+                        <a href="javascript:void(0)" ng-click="getPropertyData(pageId, pageSize)">{{pageId}}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" aria-label="Next" ng-click="nextPage()">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
     </div>

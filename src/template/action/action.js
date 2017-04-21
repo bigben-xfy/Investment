@@ -43,9 +43,11 @@
 				getInvestments: {method:"get", url: Constants.host + '/api/investments'},
 				getDebenture: {method:"get", url: Constants.host + '/api/products'},
 				getCollection: {method:"get", url: Constants.host + '/api/collects'},
+				getHistory: {method:"get", url: Constants.host + '/api/order'},
 				collectProperty: {method: 'post', url: Constants.host + '/api/collect/properties'},
 				collectInvestment: {method: 'post', url: Constants.host + '/api/collect/investments'},
-				collectDebenture: {method: 'post', url: Constants.host + '/api/collect/products'}
+				collectDebenture: {method: 'post', url: Constants.host + '/api/collect/products'},
+				postOrder: {method: 'post', url: Constants.host + '/api/order'}
 			})
 	}]);
   
@@ -376,6 +378,37 @@
 			}, function (result) {
 				$scope.collectionList = result.data;
 			});*/
+			$scope.orderData = {}
+		}
+		
+		$scope.initOrder = function (id, type, money) {
+			//$scope.orderData = {}
+			$scope.orderData = {
+				target_id: id,
+				type: type,
+				name: '',
+				birthday: '',
+				position: '',
+				address: '',
+				room: '',
+				city: '',
+				province: '',
+				nation: '',
+				email: '',
+				money: money
+			}
+			/*$scope.orderData.target_id = id;
+			$scope.orderData.type = type;*/
+		}
+		
+		$scope.postOrder = function () {
+			action_api.postOrder($scope.orderData, function (result) {
+				if(result.code == 200) alert('提交成功， 请等待我们的联系');
+				else alert(result.message);
+				
+				$scope.getCollectionData($scope.pageIndex, $scope.pageSize);
+				$('#myModal').modal('hide');
+			})
 		}
 		
 		$scope.getCollectionData = function (pageIndex, PageSize) {
@@ -439,12 +472,51 @@
 			
 			//$scope.pathName = $location.path().slice(1);
 			
-			action_api.getInvestments({
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getHistoryData(1, $scope.pageSize);
+			
+			/*action_api.getInvestments({
 				page: 1,
 				limit: 100
 			}, function (result) {
 				$scope.investmentList = result.data;
+			});*/
+		}
+		
+		$scope.getHistoryData = function (pageIndex, PageSize) {
+			action_api.getHistory({
+				page: pageIndex,
+				limit: PageSize
+				//sort: 'price-asc'
+			}, function (result) {
+				$scope.historyList = result.data;
+				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
+				
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
 			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getHistoryData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getHistoryData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
 		$scope.toPage = function (url) {

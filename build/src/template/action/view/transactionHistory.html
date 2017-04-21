@@ -46,11 +46,8 @@
                         <td>${{history.invest || numberToMoney}}</td>
                         <td>{{history.return}}</td>
                         <td>2017年2月1日</td>
-                        <td style="font-size: 12px;">
-                            <P>1.交易申请</P>
-                            <P>2.交易确认</P>
-                            <P>3.收据</P>
-                            <P>4.合同</P>
+                        <td style="font-size: 12px; text-align: left;">
+                            <p ng-repeat="file in history.files track by $index">{{$index}}.{{file}}</p>
                         </td>
                     </tr>
                 </table>

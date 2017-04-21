@@ -32,6 +32,10 @@
 		            url: '/application',
 		            templateUrl: 'src/template/action/view/application.html?v' + (+new Date())
 	            })
+	            .state('orderDetail', {
+		            url: '/orderDetail',
+		            templateUrl: 'src/template/action/view/orderDetail.html?v' + (+new Date())
+	            })
         }
     ]);
 	
@@ -47,7 +51,8 @@
 				collectProperty: {method: 'post', url: Constants.host + '/api/collect/properties'},
 				collectInvestment: {method: 'post', url: Constants.host + '/api/collect/investments'},
 				collectDebenture: {method: 'post', url: Constants.host + '/api/collect/products'},
-				postOrder: {method: 'post', url: Constants.host + '/api/order'}
+				postOrder: {method: 'post', url: Constants.host + '/api/order'},
+				getOrderDetail: {method: 'get', url: Constants.host + '/api/order/:id'}
 			})
 	}]);
   
@@ -517,6 +522,43 @@
 		$scope.previousPage = function () {
 			if($scope.pageIndex === 1) return false;
 			$scope.getHistoryData($scope.pageIndex - 1, $scope.pageSize);
+		}
+		
+		$scope.toOrderDetail = function (id) {
+			/*action_api.getOrderDetail({
+				id: id
+			}, function (result) {
+			
+			})*/
+			window.localStorage.setItem('orderId', id);
+			$location.path('orderDetail');//.search({id: id});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+	}]);
+	
+	app.controller('orderController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		
+		$scope.init = function () {
+			$scope.userInfo = $rootScope.userInfo || JSON.parse(sessionStorage.getItem('userInfo'));
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			$scope.orderId = window.localStorage.getItem('orderId');
+			action_api.getOrderDetail({
+				id: $scope.orderId
+			}, function (result) {
+				$scope.orderDetail = result.data;
+			})
 		}
 		
 		$scope.toPage = function (url) {

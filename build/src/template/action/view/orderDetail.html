@@ -1,0 +1,90 @@
+
+<div ng-controller="orderController" ng-init="init()" class="clear-fix">
+    <div class="col-sm-2 slider-bar" slider-bar>
+        <h2 ng-click="toPage('home')">LOGO</h2>
+        <div class="user-header"></div>
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{userInfo.name}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a>编辑资料</a></li>
+                <li ng-click="logout()"><a>退出登录</a></li>
+            </ul>
+        </div>
+        <p>联系电话：{{userInfo.phone}}</p>
+        <p>Email:{{userInfo.userName}}</p>
+
+        <ul class="action-menu">
+            <li ng-click="toPage('property')">寻找物业</li>
+            <li ng-click="toPage('product')">寻找项目</li>
+            <li ng-click="toPage('debenture')">寻找债券投资</li>
+            <li ng-click="toPage('collection')">收藏夹</li>
+            <li class="active" ng-click="toPage('transactionHistory')">交易历史</li>
+            <li>详细流程指南</li>
+        </ul>
+    </div>
+
+    <div class="col-sm-10" style="background-color: #F0F0F0; padding-bottom: 30px;">
+        <div class="header2" style="margin-top: 20px; font-size: 20px;">细则追踪</div>
+
+        <div class="option-selector">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>项目编号</td>
+                        <td>项目名称</td>
+                        <td>投资金额(美元)</td>
+                        <td>年回报率</td>
+                        <td>交易日期</td>
+                    </tr>
+                    <tr>
+                        <td>{{orderDetail.id}}</td>
+                        <td>
+                            {{orderDetail.name}}
+                        </td>
+                        <td>${{orderDetail.invest || numberToMoney}}</td>
+                        <td>{{orderDetail.return}}</td>
+                        <td>{{orderDetail.created_at}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="option-selector" style="margin-top: 50px;">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>项目编号</td>
+                        <td>日期</td>
+                        <td>文档名称</td>
+                        <td>大小</td>
+                        <td></td>
+                    </tr>
+                    <tr ng-repeat="file in orderDetail.files track by $index">
+                        <td>{{orderDetail.id}}</td>
+                        <td>{{orderDetail.created_at}}</td>
+                        <td>
+                            {{file.filename}}
+                        </td>
+                        <td>{{file.size}}</td>
+                        <td><a ng-href="{{file.url}}">点击查看</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

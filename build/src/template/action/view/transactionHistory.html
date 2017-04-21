@@ -17,16 +17,16 @@
 
         <ul class="action-menu">
             <li ng-click="toPage('property')">寻找物业</li>
-            <li class="active">寻找项目</li>
+            <li ng-click="toPage('product')">寻找项目</li>
             <li ng-click="toPage('debenture')">寻找债券投资</li>
             <li ng-click="toPage('collection')">收藏夹</li>
-            <li ng-click="toPage('transactionHistory')">交易历史</li>
+            <li class="active">交易历史</li>
             <li>详细流程指南</li>
         </ul>
     </div>
-    <div class="col-sm-10" style="background-color: #F0F0F0;">
+    <div class="col-sm-10" style="background-color: #F0F0F0; padding-bottom: 30px;">
 
-        <div class="header2" style="margin-top: 20px; font-size: 20px;">现有项目</div>
+        <div class="header2" style="margin-top: 20px; font-size: 20px;">交易历史</div>
         <div class="option-selector">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -40,12 +40,12 @@
                     </tr>
                     <tr ng-repeat="history in historyList track by $index">
                         <td>{{history.id}}</td>
-                        <td>
+                        <td style="cursor: pointer;" ng-click="toOrderDetail(history.id)">
                             {{history.name}}
                         </td>
                         <td>${{history.invest || numberToMoney}}</td>
                         <td>{{history.return}}</td>
-                        <td>2017年2月1日</td>
+                        <td>{{history.created_at}}</td>
                         <td style="font-size: 12px; text-align: left;">
                             <p ng-repeat="file in history.files track by $index">{{$index}}.{{file}}</p>
                         </td>

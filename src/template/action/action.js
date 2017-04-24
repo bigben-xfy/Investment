@@ -52,7 +52,9 @@
 				collectInvestment: {method: 'post', url: Constants.host + '/api/collect/investments'},
 				collectDebenture: {method: 'post', url: Constants.host + '/api/collect/products'},
 				postOrder: {method: 'post', url: Constants.host + '/api/order'},
-				getOrderDetail: {method: 'get', url: Constants.host + '/api/order/:id'}
+				getOrderDetail: {method: 'get', url: Constants.host + '/api/order/:id'},
+				getUserInfo: {method: 'get', url: Constants.host + '/api/user'},
+				saveUserInfo: {method: 'post', url: Constants.host + '/api/user'},
 			})
 	}]);
   
@@ -70,7 +72,8 @@
 		
 		$scope.init = function () {
 			$scope.userInfo = $rootScope.userInfo || JSON.parse(sessionStorage.getItem('userInfo'));
-			if(!$scope.userInfo) {
+			if(!$scope.userInfo || !$scope.userInfo.token) {
+				sessionStorage.removeItem('userInfo');
 				$scope.toPage('login');
 			}
 			
@@ -93,6 +96,11 @@
 			$scope.pageSize = 10;
 			$scope.getPropertyData(1, $scope.pageSize);
 			
+			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
 			
 			/*$scope.collectionList = window.localStorage.getItem('collectionList');
 			if($scope.collectionList) {
@@ -125,7 +133,8 @@
 				sort: 'price-asc',
 				price: $scope.price,
 				type: $scope.house,
-				room: encodeURI($scope.room)
+				room: encodeURI($scope.room),
+				token: $scope.userInfo.token
 			}, function (result) {
 				$scope.propertyList = result.data;
 				$scope.paginationData = result.pagination;
@@ -159,7 +168,8 @@
 		$scope.collectProperty = function (id, index, isDelete) {
 			action_api.collectProperty({
 				id: id,
-				is_delete: isDelete
+				is_delete: isDelete,
+				token: $scope.userInfo.token
 			}, function (result) {
 				if(result.code == 200) {
 					$scope.propertyList[index].collected = $scope.propertyList[index].collected == 1 ? 0 : 1
@@ -187,6 +197,31 @@
 			sessionStorage.removeItem('userInfo');
 			$scope.toPage('home');
 		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
 	}]);
 	
 	app.controller('investmentController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
@@ -204,6 +239,11 @@
 			$scope.pageSize = 10;
 			$scope.getInvestmentData(1, $scope.pageSize);
 			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
 			/*action_api.getInvestments({
 				page: 1,
 				limit: 100
@@ -217,7 +257,8 @@
 			action_api.getInvestments({
 				page: pageIndex,
 				limit: PageSize,
-				sort: 'price-asc'
+				sort: 'price-asc',
+				token: $scope.userInfo.token
 			}, function (result) {
 				$scope.investmentList = result.data;
 				$scope.paginationData = result.pagination;
@@ -260,7 +301,8 @@
 		$scope.collectInvestment = function (id, index, isDelete) {
 			action_api.collectInvestment({
 				id: id,
-				is_delete: isDelete
+				is_delete: isDelete,
+				token: $scope.userInfo.token
 			}, function (result) {
 				if(result.code == 200) {
 					$scope.investmentList[index].collected = $scope.investmentList[index].collected == 1 ? 0 : 1
@@ -277,6 +319,32 @@
 		$scope.logout = function () {
 			sessionStorage.removeItem('userInfo');
 			$scope.toPage('home');
+		}
+		
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
 		}
 	}]);
 	
@@ -295,6 +363,11 @@
 			$scope.pageSize = 10;
 			$scope.getDebentureData(1, $scope.pageSize);
 			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
 			/*action_api.getDebenture({
 				page: 1,
 				limit: 100
@@ -308,7 +381,8 @@
 			action_api.getDebenture({
 				page: pageIndex,
 				limit: PageSize,
-				sort: 'price-asc'
+				sort: 'price-asc',
+				token: $scope.userInfo.token
 			}, function (result) {
 				$scope.debentureList = result.data;
 				$scope.paginationData = result.pagination;
@@ -342,7 +416,8 @@
 		$scope.collectDebenture = function (id, index, isDelete) {
 			action_api.collectDebenture({
 				id: id,
-				is_delete: isDelete
+				is_delete: isDelete,
+				token: $scope.userInfo.token
 			}, function (result) {
 				if(result.code == 200) {
 					$scope.debentureList[index].collected = $scope.debentureList[index].collected == 1 ? 0 : 1
@@ -360,6 +435,31 @@
 			sessionStorage.removeItem('userInfo');
 			$scope.toPage('home');
 		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
 	}]);
 	
 	app.controller('collectionController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
@@ -376,6 +476,11 @@
 			$scope.paginationArr = [];
 			$scope.pageSize = 10;
 			$scope.getCollectionData(1, $scope.pageSize);
+			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
 			
 			/*action_api.getCollection({
 				page: 1,
@@ -400,7 +505,8 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money
+				money: money,
+				token: $scope.userInfo.token
 			}
 			/*$scope.orderData.target_id = id;
 			$scope.orderData.type = type;*/
@@ -419,7 +525,8 @@
 		$scope.getCollectionData = function (pageIndex, PageSize) {
 			action_api.getCollection({
 				page: pageIndex,
-				limit: PageSize
+				limit: PageSize,
+				token: $scope.userInfo.token
 				//sort: 'price-asc'
 			}, function (result) {
 				$scope.collectionList = result.data;
@@ -464,6 +571,31 @@
 			sessionStorage.removeItem('userInfo');
 			$scope.toPage('home');
 		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
 	}]);
 	
 	app.controller('historyController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
@@ -481,6 +613,11 @@
 			$scope.pageSize = 10;
 			$scope.getHistoryData(1, $scope.pageSize);
 			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
 			/*action_api.getInvestments({
 				page: 1,
 				limit: 100
@@ -492,7 +629,8 @@
 		$scope.getHistoryData = function (pageIndex, PageSize) {
 			action_api.getHistory({
 				page: pageIndex,
-				limit: PageSize
+				limit: PageSize,
+				token: $scope.userInfo.token
 				//sort: 'price-asc'
 			}, function (result) {
 				$scope.historyList = result.data;
@@ -543,6 +681,31 @@
 			sessionStorage.removeItem('userInfo');
 			$scope.toPage('home');
 		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
 	}]);
 	
 	app.controller('orderController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
@@ -553,12 +716,18 @@
 				$scope.toPage('login');
 			}
 			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
 			$scope.orderId = window.localStorage.getItem('orderId');
 			action_api.getOrderDetail({
-				id: $scope.orderId
+				id: $scope.orderId,
+				token: $scope.userInfo.token
 			}, function (result) {
 				$scope.orderDetail = result.data;
-			})
+			});
 		}
 		
 		$scope.toPage = function (url) {
@@ -569,6 +738,31 @@
 		$scope.logout = function () {
 			sessionStorage.removeItem('userInfo');
 			$scope.toPage('home');
+		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
 		}
 	}]);
     

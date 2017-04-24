@@ -1,6 +1,7 @@
 
-body{
+html, body{
     color: #333333;
+    font-family: 'Microsoft Yahei'!important;
 }
 
 .row{

@@ -159,7 +159,7 @@
     color: #DB4B2C;
     padding: 3px 0;
     text-decoration: none;
-    border-bottom: #DB4B2C solid 1px;
+    /*border-bottom: #DB4B2C solid 1px;*/
     position: relative;
 }
 

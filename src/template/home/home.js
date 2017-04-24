@@ -93,7 +93,8 @@
 					$rootScope.userInfo = {
 						userName: $scope.email,
 						phone: result.data.cellphone,
-						name: result.data.name || '未命名'
+						name: result.data.name || '未命名',
+						token: result.data.token
 					}
 					sessionStorage.setItem('userInfo', JSON.stringify($rootScope.userInfo));
 					$scope.toPage('property');

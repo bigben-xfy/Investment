@@ -98,6 +98,8 @@
 					}
 					sessionStorage.setItem('userInfo', JSON.stringify($rootScope.userInfo));
 					$scope.toPage('property');
+				}else if(result.code == 4000){
+					alert('密码错误');
 				}else {
 					alert(result.message + '!' + result.data[0]);
 				}
@@ -123,11 +125,11 @@
 		
 		$scope.register = function () {
 			$scope.formatData = {
-				last_name: $scope.userName,
+				username: $scope.userName,
 				password: $scope.password,
 				password_check: $scope.checkPassword,
 				email: $scope.email,
-				first_name: $scope.realName,
+				name: $scope.realName,
 				cellphone: $scope.phone
 			}
 			

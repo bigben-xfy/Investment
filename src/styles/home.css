@@ -81,10 +81,11 @@
 
 .tab-content{
     height: 380px;
-    padding: 10px;
+    padding: 30px 20px;
     border: #efefef solid 1px;
     border-top: none;
     border-radius: 2px;
+    overflow-y: scroll;
 }
 
 .header{
@@ -332,6 +333,12 @@
     font-weight: 300;
 }
 .login-content .form-group input[type=text]{
+    outline: none;
+    background-color: transparent;
+    border: #ffffff solid 1px;
+    width: 200px;
+}
+.login-content .form-group input[type=password]{
     outline: none;
     background-color: transparent;
     border: #ffffff solid 1px;

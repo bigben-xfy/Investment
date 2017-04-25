@@ -77,17 +77,37 @@
 				$scope.toPage('login');
 			}
 			
-			$scope.priceArr = [
+			$scope.cityArr = [
 				'',
-				'0-1',
-				'1-2',
-				'2-3',
-				'3-4',
-				'4-5',
-				'5'
+				'Auckland',
+				'Cleveland',
+				'Ohio',
+				'Las Vegas',
+				'Portland',
+				'San Francisco',
+				'Seattle',
+				'Shreveport'
+			]
+			$scope.priceArr = [
+				{name: '不限', value: ''},
+				{name: '3万以下', value: '0-30000'},
+				{name: '3-6万', value: '30000-60000'},
+				{name: '6-9万', value: '60000-90000'},
+				{name: '9-12万', value: '90000-1200000'},
+				{name: '12万以上', value: '120000'}
 			];
 			$scope.roomArr = ['','1','1+','2','2+','3','3+','4','4+','5','5+'];
-			$scope.houseArr = ['','villa','apartment','house','business','industry','land','farm'];
+			$scope.houseArr = [
+				{name: '不限', value: ''},
+				{name: '别墅', value: 'villa'},
+				{name: '公寓', value: 'apartment'},
+				{name: '城市屋', value: 'house'},
+				{name: '商业建筑', value: 'business'},
+				{name: '工业建筑', value: 'industry'},
+				{name: '土地', value: 'land'},
+				{name: '农场', value: 'farm'}
+			];
+			$scope.city = $scope.cityArr[0];
 			$scope.price = $scope.priceArr[0];
 			$scope.room = $scope.roomArr[0];
 			$scope.house = $scope.houseArr[0];
@@ -111,6 +131,46 @@
 			}else {
 				$scope.collectionList = []
 			}*/
+			
+			$scope.orderData = {};
+		}
+		
+		$scope.initOrder = function (id, type, money) {
+			//$scope.orderData = {}
+			$scope.orderData = {
+				target_id: id,
+				type: type,
+				name: '',
+				birthday: '',
+				position: '',
+				address: '',
+				room: '',
+				city: '',
+				province: '',
+				nation: '',
+				email: '',
+				money: money,
+				token: $scope.userInfo.token
+			}
+		}
+		
+		$scope.postOrder = function () {
+			if(!$scope.orderData.name || !$scope.orderData.name){
+				alert('姓名和email不能为空！');
+				return false;
+			}
+			action_api.postOrder($scope.orderData, function (result) {
+				if(result.code == 200) alert('提交成功， 请等待我们的联系');
+				else alert(result.message);
+				
+				$scope.getPropertyData($scope.pageIndex, $scope.pageSize);
+				$('#myModal').modal('hide');
+			})
+		}
+		
+		$scope.setCity = function (city) {
+			$scope.city = city;
+			$scope.getPropertyData($scope.pageIndex, $scope.pageSize);
 		}
 		
 		$scope.setPrice = function (price) {
@@ -131,8 +191,8 @@
 				page: pageIndex,
 				limit: PageSize,
 				sort: 'price-asc',
-				price: $scope.price,
-				type: $scope.house,
+				price: $scope.price.value,
+				type: $scope.house.value,
 				room: encodeURI($scope.room),
 				token: $scope.userInfo.token
 			}, function (result) {
@@ -251,6 +311,40 @@
 				$scope.investmentList = result.data;
 				//$scope.properrtyCount = result.pagination.total;
 			});*/
+			$scope.orderData = {}
+		}
+		
+		$scope.initOrder = function (id, type, money) {
+			//$scope.orderData = {}
+			$scope.orderData = {
+				target_id: id,
+				type: type,
+				name: '',
+				birthday: '',
+				position: '',
+				address: '',
+				room: '',
+				city: '',
+				province: '',
+				nation: '',
+				email: '',
+				money: money,
+				token: $scope.userInfo.token
+			}
+		}
+		
+		$scope.postOrder = function () {
+			if(!$scope.orderData.name || !$scope.orderData.name){
+				alert('姓名和email不能为空！');
+				return false;
+			}
+			action_api.getInvestmentData($scope.orderData, function (result) {
+				if(result.code == 200) alert('提交成功， 请等待我们的联系');
+				else alert(result.message);
+				
+				$scope.getPropertyData($scope.pageIndex, $scope.pageSize);
+				$('#myModal').modal('hide');
+			})
 		}
 		
 		$scope.getInvestmentData = function (pageIndex, PageSize) {
@@ -375,6 +469,40 @@
 				$scope.debentureList = result.data;
 				//$scope.properrtyCount = result.pagination.total;
 			});*/
+			$scope.orderData = {}
+		}
+		
+		$scope.initOrder = function (id, type, money) {
+			//$scope.orderData = {}
+			$scope.orderData = {
+				target_id: id,
+				type: type,
+				name: '',
+				birthday: '',
+				position: '',
+				address: '',
+				room: '',
+				city: '',
+				province: '',
+				nation: '',
+				email: '',
+				money: money,
+				token: $scope.userInfo.token
+			}
+		}
+		
+		$scope.postOrder = function () {
+			if(!$scope.orderData.name || !$scope.orderData.name){
+				alert('姓名和email不能为空！');
+				return false;
+			}
+			action_api.getInvestmentData($scope.orderData, function (result) {
+				if(result.code == 200) alert('提交成功， 请等待我们的联系');
+				else alert(result.message);
+				
+				$scope.getDebentureData($scope.pageIndex, $scope.pageSize);
+				$('#myModal').modal('hide');
+			})
 		}
 		
 		$scope.getDebentureData = function (pageIndex, PageSize) {
@@ -513,6 +641,10 @@
 		}
 		
 		$scope.postOrder = function () {
+			if(!$scope.orderData.name || !$scope.orderData.name){
+				alert('姓名和email不能为空！');
+				return false;
+			}
 			action_api.postOrder($scope.orderData, function (result) {
 				if(result.code == 200) alert('提交成功， 请等待我们的联系');
 				else alert(result.message);

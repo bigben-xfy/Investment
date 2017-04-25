@@ -58,6 +58,7 @@
                         <td>{{investment.cycle}}个月</td>
                         <td>
                             <p ng-if="investment.state == 'enable'">可选</p>
+                            <p ng-if="investment.state != 'enable'">不可选</p>
                         </td>
                         <td>
                             <div>
@@ -70,15 +71,9 @@
                                     <span>取消收藏</span>
                                 </a>
                             </div>
-                            <!--<div>
-                                <a ng-click="collectInvestment(investment.id, $index, investment.collected)">
-                                    +
-                                    <span ng-if="investment.collected == 0">点击收藏</span>
-                                    <span ng-if="investment.collected == 1">取消收藏</span>
-                                </a>
-                            </div>-->
-                            <!--<div><a ng-click="collectInvestment(investment.id, $index)">+<span>点击收藏</span></a></div>-->
-                            <!--<div ng-if="investment.state == 'enable'"><a ng-click=""><span>申请购买</span></a></div>-->
+                            <div ng-if="investment.state == 'enable'">
+                                <div><a ng-click="initOrder(investment.id, 'property', investment.invest)" data-toggle="modal" data-target="#orderModel">+<span>点击购入</span></a></div>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -105,6 +100,70 @@
             </nav>
         </div>
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="orderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="orderModelLabel">物业详情</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="userInformation">
+                        <div class="form-group">
+                            <label class="control-label">姓名:</label>
+                            <input type="text" class="form-control" ng-model="orderData.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">生日:</label>
+                            <input type="text" class="form-control" ng-model="orderData.birthday">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">职业:</label>
+                            <input type="text" class="form-control" ng-model="orderData.position">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">地址:</label>
+                            <input type="text" class="form-control" ng-model="orderData.address">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">房号:</label>
+                            <input type="text" class="form-control" ng-model="orderData.room">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">城市:</label>
+                            <input type="text" class="form-control" ng-model="orderData.city">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">省份:</label>
+                            <input type="text" class="form-control" ng-model="orderData.province">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">国家:</label>
+                            <input type="text" class="form-control" ng-model="orderData.nation">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">邮箱:</label>
+                            <input type="text" class="form-control" ng-model="orderData.email">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">购入项目编号:</label>
+                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.target_id">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">投资金额(美金):</label>
+                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.money">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="postOrder()">申请购入</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->

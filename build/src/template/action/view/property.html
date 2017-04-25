@@ -32,13 +32,10 @@
                     <p>地区/城市</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            a <span class="caret"></span>
+                            {{city || '不限'}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a>a</a></li>
-                            <li><a>b</a></li>
-                            <li><a>c</a></li>
-                            <li><a>d</a></li>
+                            <li ng-repeat="cityItem in cityArr track by $index" ng-click="setCity(cityItem)"><a>{{cityItem || '所有'}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -46,10 +43,10 @@
                     <p>价格</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{price || '所有'}} <span class="caret"></span>
+                            {{price.name}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="priceItem in priceArr track by $index" ng-click="setPrice(priceItem)"><a>{{priceItem || '所有'}}</a></li>
+                            <li ng-repeat="priceItem in priceArr track by $index" ng-click="setPrice(priceItem)"><a>{{priceItem.name}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,7 +54,7 @@
                     <p>房间数</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{room || '所有'}} <span class="caret"></span>
+                            {{room || '不限'}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li ng-repeat="roomItem in roomArr track by $index" ng-click="setRoom(roomItem)"><a>{{roomItem || '所有'}}</a></li>
@@ -68,10 +65,10 @@
                     <p>类型</p>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{house || '所有'}} <span class="caret"></span>
+                            {{house.name}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="houseItem in houseArr track by $index" ng-click="setHouse(houseItem)"><a>{{houseItem || '所有'}}</a></li>
+                            <li ng-repeat="houseItem in houseArr track by $index" ng-click="setHouse(houseItem)"><a>{{houseItem.name}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -111,6 +108,7 @@
                         <td>{{property.return}}</td>
                         <td>
                             <p ng-if="property.state == 'enable'">可选</p>
+                            <p ng-if="property.state != 'enable'">不可选</p>
                         </td>
                         <td>
                             <div>
@@ -123,8 +121,9 @@
                                     <span>取消收藏</span>
                                 </a>
                             </div>
-                            <!--<div ng-if="property.collected != 0"><a ng-click="collectProperty(property.id, $index)">+<span>取消收藏</span></a></div>-->
-                            <!--<div ng-if="property.state == 'enable'"><a ng-click=""><span>申请购买</span></a></div>-->
+                            <div ng-if="property.state == 'enable'">
+                                <div><a ng-click="initOrder(property.id, 'property', property.invest)" data-toggle="modal" data-target="#orderModel">+<span>点击购入</span></a></div>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -151,6 +150,70 @@
             </nav>
         </div>
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="orderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="orderModelLabel">物业详情</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="userInformation">
+                        <div class="form-group">
+                            <label class="control-label">姓名:</label>
+                            <input type="text" class="form-control" ng-model="orderData.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">生日:</label>
+                            <input type="text" class="form-control" ng-model="orderData.birthday">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">职业:</label>
+                            <input type="text" class="form-control" ng-model="orderData.position">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">地址:</label>
+                            <input type="text" class="form-control" ng-model="orderData.address">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">房号:</label>
+                            <input type="text" class="form-control" ng-model="orderData.room">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">城市:</label>
+                            <input type="text" class="form-control" ng-model="orderData.city">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">省份:</label>
+                            <input type="text" class="form-control" ng-model="orderData.province">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">国家:</label>
+                            <input type="text" class="form-control" ng-model="orderData.nation">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">邮箱:</label>
+                            <input type="text" class="form-control" ng-model="orderData.email">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">购入项目编号:</label>
+                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.target_id">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">投资金额(美金):</label>
+                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.money">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="postOrder()">申请购入</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->

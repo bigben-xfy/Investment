@@ -1,5 +1,5 @@
 
-<div ng-controller="historyController" ng-init="init()" class="clear-fix">
+<div ng-controller="secondHistoryController" ng-init="init()" class="clear-fix">
     <div class="col-sm-2 slider-bar" slider-bar>
         <h2 ng-click="toPage('home')">LOGO</h2>
         <div class="user-header"></div>
@@ -20,8 +20,8 @@
             <li ng-click="toPage('product')">寻找项目</li>
             <li ng-click="toPage('debenture')">寻找债券投资</li>
             <li ng-click="toPage('collection')">收藏夹</li>
-            <li class="active">已申请购买</li>
-            <li ng-click="toPage('transactionHistoryTwo')">已购买清单</li>
+            <li ng-click="toPage('transactionHistory')">已购买清单</li>
+            <li class="active">已购买清单</li>
             <li ng-click="toPage('flow')">详细流程指南</li>
         </ul>
     </div>

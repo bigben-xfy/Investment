@@ -28,6 +28,10 @@
 		            url: '/transactionHistory',
 		            templateUrl: 'src/template/action/view/transactionHistory.html?v' + (+new Date())
 	            })
+	            .state('transactionHistoryTwo', {
+		            url: '/transactionHistoryTwo',
+		            templateUrl: 'src/template/action/view/transactionHistoryTwo.html?v' + (+new Date())
+	            })
 	            .state('application', {
 		            url: '/application',
 		            templateUrl: 'src/template/action/view/application.html?v' + (+new Date())
@@ -800,6 +804,107 @@
 			}, function (result) {
 			
 			})*/
+			window.localStorage.setItem('orderId', id);
+			$location.path('orderDetail');//.search({id: id});
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
+	}]);
+	
+	app.controller('secondHistoryController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = $rootScope.userInfo || JSON.parse(sessionStorage.getItem('userInfo'));
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getHistoryData(1, $scope.pageSize);
+			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
+		}
+		
+		$scope.getHistoryData = function (pageIndex, PageSize) {
+			action_api.getHistory({
+				page: pageIndex,
+				limit: PageSize,
+				has_type: '交易确认',
+				token: $scope.userInfo.token
+				//sort: 'price-asc'
+			}, function (result) {
+				$scope.historyList = result.data;
+				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
+				
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
+			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getHistoryData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getHistoryData($scope.pageIndex - 1, $scope.pageSize);
+		}
+		
+		$scope.toOrderDetail = function (id) {
+			
 			window.localStorage.setItem('orderId', id);
 			$location.path('orderDetail');//.search({id: id});
 		}

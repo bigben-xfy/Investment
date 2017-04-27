@@ -24,6 +24,14 @@
 		            url: '/collection',
 		            templateUrl: 'src/template/action/view/collection.html?v' + (+new Date())
 	            })
+	            .state('collectionTwo', {
+		            url: '/collectionTwo',
+		            templateUrl: 'src/template/action/view/collectionTwo.html?v' + (+new Date())
+	            })
+	            .state('collectionThree', {
+		            url: '/collectionThree',
+		            templateUrl: 'src/template/action/view/collectionThree.html?v' + (+new Date())
+	            })
 	            .state('transactionHistory', {
 		            url: '/transactionHistory',
 		            templateUrl: 'src/template/action/view/transactionHistory.html?v' + (+new Date())
@@ -59,6 +67,9 @@
 				getOrderDetail: {method: 'get', url: Constants.host + '/api/order/:id'},
 				getUserInfo: {method: 'get', url: Constants.host + '/api/user'},
 				saveUserInfo: {method: 'post', url: Constants.host + '/api/user'},
+				getPropertyCollection: {method:"get", url: Constants.host + '/api/collect/properties'},
+				getInvestmentCollection: {method:"get", url: Constants.host + '/api/collect/investments'},
+				getDebentureCollection: {method:"get", url: Constants.host + '/api/collect/products'}
 			})
 	}]);
   
@@ -623,6 +634,15 @@
 			$scope.orderData = {}
 		}
 		
+		$scope.getPropertyDetail = function (id, index) {
+			/*action_api.getPropertyDetail({
+			 id: id
+			 }, function (result) {
+			 
+			 })*/
+			$scope.propertyDetail = $scope.collectionList[index].source
+		}
+		
 		$scope.initOrder = function (id, type, money) {
 			//$scope.orderData = {}
 			$scope.orderData = {
@@ -659,7 +679,296 @@
 		}
 		
 		$scope.getCollectionData = function (pageIndex, PageSize) {
-			action_api.getCollection({
+			action_api.getPropertyCollection({
+				page: pageIndex,
+				limit: PageSize,
+				token: $scope.userInfo.token
+				//sort: 'price-asc'
+			}, function (result) {
+				$scope.collectionList = result.data;
+				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
+				
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
+			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getCollectionData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getCollectionData($scope.pageIndex - 1, $scope.pageSize);
+		}
+		
+		$scope.buy = function () {
+			console.log($scope.name);
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
+	}]);
+	
+	app.controller('secondCollectionController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = $rootScope.userInfo || JSON.parse(sessionStorage.getItem('userInfo'));
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getCollectionData(1, $scope.pageSize);
+			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
+			/*action_api.getCollection({
+			 page: 1,
+			 limit: 100
+			 }, function (result) {
+			 $scope.collectionList = result.data;
+			 });*/
+			$scope.orderData = {}
+		}
+		
+		$scope.initOrder = function (id, type, money) {
+			//$scope.orderData = {}
+			$scope.orderData = {
+				target_id: id,
+				type: type,
+				name: '',
+				birthday: '',
+				position: '',
+				address: '',
+				room: '',
+				city: '',
+				province: '',
+				nation: '',
+				email: '',
+				money: money,
+				token: $scope.userInfo.token
+			}
+			/*$scope.orderData.target_id = id;
+			 $scope.orderData.type = type;*/
+		}
+		
+		$scope.getInvestmentDetail = function (id, index) {
+			/*action_api.getPropertyDetail({
+			 id: id
+			 }, function (result) {
+			 
+			 })*/
+			$scope.investmentDetail = $scope.collectionList[index].source
+		}
+		
+		$scope.postOrder = function () {
+			if(!$scope.orderData.name || !$scope.orderData.name){
+				alert('姓名和email不能为空！');
+				return false;
+			}
+			action_api.postOrder($scope.orderData, function (result) {
+				if(result.code == 200) alert('提交成功， 请等待我们的联系');
+				else alert(result.message);
+				
+				$scope.getCollectionData($scope.pageIndex, $scope.pageSize);
+				$('#myModal').modal('hide');
+			})
+		}
+		
+		$scope.getCollectionData = function (pageIndex, PageSize) {
+			action_api.getInvestmentCollection({
+				page: pageIndex,
+				limit: PageSize,
+				token: $scope.userInfo.token
+				//sort: 'price-asc'
+			}, function (result) {
+				$scope.collectionList = result.data;
+				$scope.paginationData = result.pagination;
+				$scope.pageIndex = pageIndex;
+				
+				$scope.totalPage = result.pagination.total_pages;
+				if($scope.totalPage <= 5) $scope.paginationArr = _.range(1, $scope.totalPage + 1);
+				else {
+					if(pageIndex > 3 && pageIndex < $scope.totalPage - 1) {
+						$scope.paginationArr = _.range(pageIndex - 1, pageIndex + 2);
+						$scope.paginationArr.push($scope.totalPage);
+						$scope.paginationArr.unshift(1);
+					}else if(pageIndex <= 3) {
+						$scope.paginationArr = _.range(1, 5);
+						$scope.paginationArr.push($scope.totalPage);
+					}
+				}
+			});
+		}
+		
+		$scope.nextPage = function () {
+			if($scope.pageIndex === $scope.totalPage) return false;
+			$scope.getCollectionData($scope.pageIndex + 1, $scope.pageSize);
+		}
+		
+		$scope.previousPage = function () {
+			if($scope.pageIndex === 1) return false;
+			$scope.getCollectionData($scope.pageIndex - 1, $scope.pageSize);
+		}
+		
+		$scope.buy = function () {
+			console.log($scope.name);
+		}
+		
+		$scope.toPage = function (url) {
+			if(url) $location.path(url);
+			else alert('页面赞缺失');
+		}
+		
+		$scope.logout = function () {
+			sessionStorage.removeItem('userInfo');
+			$scope.toPage('home');
+		}
+		
+		$scope.getUserInfo = function () {
+			action_api.getUserInfo({
+				token: $scope.userInfo.token
+			}, function (result) {
+				$scope.userInfoData = {
+					name: result.data.name || '未命名',
+					cellphone: result.data.cellphone
+				}
+			});
+		}
+		
+		$scope.saveUserInfo = function () {
+			action_api.saveUserInfo($scope.userInfoData,
+				function (result) {
+					if(result.code == 200) {
+						$scope.userInfo.name = $scope.userInfoData.name;
+						$scope.userInfo.phone = $scope.userInfoData.cellphone;
+						window.sessionStorage.setItem('userInfo', JSON.stringify($scope.userInfo));
+						$('#userInfo').modal('hide');
+						alert('修改成功');
+					}
+					else alert(result.message);
+				});
+		}
+	}]);
+	
+	app.controller('thirdCollectionController',['$scope', '$location', '$rootScope', 'action_api', function($scope, $location, $rootScope, action_api){
+		$scope.testArr = [1,2,3,4,5,6,7,8];
+		
+		$scope.init = function () {
+			$scope.userInfo = $rootScope.userInfo || JSON.parse(sessionStorage.getItem('userInfo'));
+			if(!$scope.userInfo) {
+				$scope.toPage('login');
+			}
+			
+			//$scope.pathName = $location.path().slice(1);
+			
+			$scope.paginationArr = [];
+			$scope.pageSize = 10;
+			$scope.getCollectionData(1, $scope.pageSize);
+			
+			$scope.userInfoData = {
+				name: $scope.userInfo.name,
+				cellphone: $scope.userInfo.phone
+			}
+			
+			/*action_api.getCollection({
+			 page: 1,
+			 limit: 100
+			 }, function (result) {
+			 $scope.collectionList = result.data;
+			 });*/
+			$scope.orderData = {}
+		}
+		
+		$scope.initOrder = function (id, type, money) {
+			//$scope.orderData = {}
+			$scope.orderData = {
+				target_id: id,
+				type: type,
+				name: '',
+				birthday: '',
+				position: '',
+				address: '',
+				room: '',
+				city: '',
+				province: '',
+				nation: '',
+				email: '',
+				money: money,
+				token: $scope.userInfo.token
+			}
+			/*$scope.orderData.target_id = id;
+			 $scope.orderData.type = type;*/
+		}
+		
+		$scope.postOrder = function () {
+			if(!$scope.orderData.name || !$scope.orderData.name){
+				alert('姓名和email不能为空！');
+				return false;
+			}
+			action_api.postOrder($scope.orderData, function (result) {
+				if(result.code == 200) alert('提交成功， 请等待我们的联系');
+				else alert(result.message);
+				
+				$scope.getCollectionData($scope.pageIndex, $scope.pageSize);
+				$('#myModal').modal('hide');
+			})
+		}
+		
+		$scope.getCollectionData = function (pageIndex, PageSize) {
+			action_api.getDebentureCollection({
 				page: pageIndex,
 				limit: PageSize,
 				token: $scope.userInfo.token

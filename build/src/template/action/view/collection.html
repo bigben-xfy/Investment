@@ -16,10 +16,26 @@
         <p>Email:{{userInfo.userName}}</p>
 
         <ul class="action-menu">
-            <li ng-click="toPage('property')">寻找物业</li>
-            <li ng-click="toPage('project')">寻找项目</li>
-            <li ng-click="toPage('debenture')">寻找债券投资</li>
-            <li class="active">收藏夹</li>
+            <li data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                投资中心
+                <span class="glyphicon glyphicon-chevron-left" style="float: right; margin-right: 10px;"></span>
+            </li>
+            <div class="collapse" id="collapseExample">
+                <li ng-click="toPage('property')">寻找物业</li>
+                <li ng-click="toPage('project')">寻找项目</li>
+                <li ng-click="toPage('debenture')">寻找债券投资</li>
+            </div>
+
+            <li data-toggle="collapse" data-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
+                投资中心
+                <span class="glyphicon glyphicon-chevron-left" style="float: right; margin-right: 10px;"></span>
+            </li>
+            <div class="collapse collapse in" id="collapseExampleTwo">
+                <li class="active">物业收藏夹</li>
+                <li ng-click="toPage('collectionTwo')">项目收藏夹</li>
+                <li ng-click="toPage('collectionThree')">债券收藏夹</li>
+            </div>
+
             <li ng-click="toPage('transactionHistory')">已申请购买</li>
             <li ng-click="toPage('transactionHistoryTwo')">已购买清单</li>
             <li ng-click="toPage('flow')">详细流程指南</li>
@@ -27,21 +43,20 @@
     </div>
     <div class="col-sm-10" style="background-color: #F0F0F0;">
 
-        <div class="header2" style="margin-top: 20px; font-size: 20px;">收藏投资组合</div>
+        <div class="header2" style="margin-top: 20px; font-size: 20px;">物业收藏</div>
         <div class="option-selector">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <td>项目</td>
+                        <td>物业</td>
                         <td>价格(美元)</td>
                         <td>投资金额(美元)</td>
                         <td>租金(美元)</td>
                         <td>年回报率</td>
-                        <td>投资年限</td>
                         <td>状态</td>
                     </tr>
                     <tr ng-repeat="collection in collectionList track by $index">
-                        <td ng-if="collection.type == 'property'">
+                        <td ng-click="getPropertyDetail(collection.id, $index)" data-toggle="modal" data-target="#myModalTwo">
                             <div class="clear-fix">
                                 <div class="property-img" style="background-image: url({{collection.source.pics[0]}})"></div>
                                 <div class="property-info">
@@ -54,28 +69,12 @@
                             </div>
                             <div class="property-address">地址:{{collection.source.address}}</div>
                         </td>
-                        <td ng-if="collection.type == 'investment'">
-                            <div class="clear-fix">
-                                <div class="property-img" style="background-image: url({{collection.source.pics[0]}})"></div>
-                                <div class="property-info">
-                                    <p>年份:{{collection.source.age}}</p>
-                                    <p>城市:{{collection.source.city}}</p>
-                                    <p>环境评估等级:{{collection.source.environment_level}}</p>
-                                </div>
-                            </div>
-                            <div class="property-address">项目概述:{{collection.source.type}}</div>
-                            <div class="property-address">地址:{{collection.source.address}}</div>
-                        </td>
-                        <td style="text-align: left" ng-if="collection.type == 'product'">
-                            <h5>{{collection.source.name}}</h5>
-                            <p style="font-size: 12px">项目简介:{{collection.source.description || '暂无简介'}}</p>
-                        </td>
 
                         <td>${{collection.source.price || numberToMoney}}</td>
                         <td>${{collection.source.invest || numberToMoney}}</td>
                         <td>${{collection.source.rend || numberToMoney}}</td>
                         <td>{{collection.source.return}}</td>
-                        <td>{{collection.source.cycle}}个月</td>
+                        <!--<td>{{collection.source.cycle}}个月</td>-->
                         <td>
                             <div ng-if="collection.source.state == 'enable'">
                                 <p>可选</p>
@@ -107,6 +106,31 @@
             </nav>
         </div>
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModaTwol" tabindex="-1" role="dialog" aria-labelledby="myModalLabelTwo">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabelTwo">物业详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-img"><img ng-src="{{propertyDetail.pics[0]}}"></div>
+                    <p>房间数:{{propertyDetail.room}}</p>
+                    <p>总面积:{{propertyDetail.area}}</p>
+                    <p>建筑年份:{{propertyDetail.age}}</p>
+                    <p>城市:{{propertyDetail.city}}</p>
+                    <p>环境评估等级:{{propertyDetail.environment_level}}</p>
+                    <p>地址:{{property.address}}</p>
+                </div>
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>-->
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->

@@ -16,10 +16,26 @@
         <p>Email:{{userInfo.userName}}</p>
 
         <ul class="action-menu">
-            <li ng-click="toPage('property')">寻找物业</li>
-            <li ng-click="toPage('product')">寻找项目</li>
-            <li ng-click="toPage('debenture')">寻找债券投资</li>
-            <li ng-click="toPage('collection')">收藏夹</li>
+            <li data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                投资中心
+                <span class="glyphicon glyphicon-chevron-left" style="float: right; margin-right: 10px;"></span>
+            </li>
+            <div class="collapse" id="collapseExample">
+                <li ng-click="toPage('property')">寻找物业</li>
+                <li ng-click="toPage('project')">寻找项目</li>
+                <li ng-click="toPage('debenture')">寻找债券投资</li>
+            </div>
+
+            <li data-toggle="collapse" data-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
+                投资中心
+                <span class="glyphicon glyphicon-chevron-left" style="float: right; margin-right: 10px;"></span>
+            </li>
+            <div id="collapseExampleTwo">
+                <li ng-click="toPage('collectionTwo')">物业收藏夹</li>
+                <li ng-click="toPage('collectionTwo')">项目收藏夹</li>
+                <li ng-click="toPage('collectionThree')">债券收藏夹</li>
+            </div>
+
             <li class="active" ng-click="toPage('transactionHistory')">已申请购买</li>
             <li ng-click="toPage('transactionHistoryTwo')">已购买清单</li>
             <li ng-click="toPage('flow')">详细流程指南</li>

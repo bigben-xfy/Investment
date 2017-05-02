@@ -213,7 +213,9 @@
     width: 100%;
 }
 
-
+.slider-bar h2{
+    cursor: pointer;
+}
 
 
 

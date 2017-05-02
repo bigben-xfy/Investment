@@ -80,7 +80,7 @@
 }
 
 .tab-content{
-    height: 380px;
+    min-height: 380px;
     padding: 30px 20px;
     border: #efefef solid 1px;
     border-top: none;
@@ -253,9 +253,9 @@
 
 .tab-container{
     width: 80%;
-    position: absolute;
-    bottom: 0;
-    left: 10%;
+    max-width: 1280px;
+    margin: auto;
+    margin-top: -56px;
 }
 
 .tab-container .tab-content{

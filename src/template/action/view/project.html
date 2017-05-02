@@ -30,7 +30,7 @@
                 投资中心
                 <span class="glyphicon glyphicon-chevron-left" style="float: right; margin-right: 10px;"></span>
             </li>
-            <div id="collapseExampleTwo">
+            <div class="collapse" id="collapseExampleTwo">
                 <li ng-click="toPage('collectionTwo')">物业收藏夹</li>
                 <li ng-click="toPage('collectionTwo')">项目收藏夹</li>
                 <li ng-click="toPage('collectionThree')">债券收藏夹</li>
@@ -49,8 +49,8 @@
                 <table class="table table-bordered">
                     <tr>
                         <td>项目</td>
-                        <td>价格(美元)</td>
-                        <td>投资金额(美元)</td>
+                        <td>价格(万美元)</td>
+                        <td>投资金额(万美元)</td>
                         <td>年回报率</td>
                         <td>投资周期</td>
                         <td>状态</td>
@@ -72,7 +72,7 @@
                         <td>${{investment.price || numberToMoney}}</td>
                         <td>${{investment.invest || numberToMoney}}</td>
                         <td>{{investment.return}}</td>
-                        <td>{{investment.cycle}}个月</td>
+                        <td>{{investment.cycle}}</td>
                         <td>
                             <p ng-if="investment.state == 'enable'">可选</p>
                             <p ng-if="investment.state != 'enable'">不可选</p>
@@ -89,7 +89,7 @@
                                 </a>
                             </div>
                             <div ng-if="investment.state == 'enable'">
-                                <div><a ng-click="initOrder(investment.id, 'property', investment.invest)" data-toggle="modal" data-target="#orderModel">+<span>点击购入</span></a></div>
+                                <div><a ng-click="initOrder(investment.id, 'investment', investment.invest)" data-toggle="modal" data-target="#orderModel">+<span>点击购入</span></a></div>
                             </div>
                         </td>
                     </tr>

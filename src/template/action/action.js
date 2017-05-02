@@ -170,7 +170,7 @@
 		}
 		
 		$scope.postOrder = function () {
-			if(!$scope.orderData.name || !$scope.orderData.name){
+			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
 				return false;
 			}
@@ -349,15 +349,15 @@
 		}
 		
 		$scope.postOrder = function () {
-			if(!$scope.orderData.name || !$scope.orderData.name){
+			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
 				return false;
 			}
-			action_api.getInvestmentData($scope.orderData, function (result) {
+			action_api.postOrder($scope.orderData, function (result) {
 				if(result.code == 200) alert('提交成功， 请等待我们的联系');
 				else alert(result.message);
 				
-				$scope.getPropertyData($scope.pageIndex, $scope.pageSize);
+				$scope.getInvestmentData($scope.pageIndex, $scope.pageSize);
 				$('#myModal').modal('hide');
 			})
 		}
@@ -507,11 +507,11 @@
 		}
 		
 		$scope.postOrder = function () {
-			if(!$scope.orderData.name || !$scope.orderData.name){
+			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
 				return false;
 			}
-			action_api.getInvestmentData($scope.orderData, function (result) {
+			action_api.postOrder($scope.orderData, function (result) {
 				if(result.code == 200) alert('提交成功， 请等待我们的联系');
 				else alert(result.message);
 				
@@ -665,7 +665,7 @@
 		}
 		
 		$scope.postOrder = function () {
-			if(!$scope.orderData.name || !$scope.orderData.name){
+			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
 				return false;
 			}
@@ -814,7 +814,7 @@
 		}
 		
 		$scope.postOrder = function () {
-			if(!$scope.orderData.name || !$scope.orderData.name){
+			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
 				return false;
 			}
@@ -954,7 +954,7 @@
 		}
 		
 		$scope.postOrder = function () {
-			if(!$scope.orderData.name || !$scope.orderData.name){
+			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
 				return false;
 			}

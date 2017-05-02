@@ -1,5 +1,5 @@
 
-<div ng-controller="secondCollectionController" ng-init="init()" class="clear-fix">
+<div ng-controller="thirdCollectionController" ng-init="init()" class="clear-fix">
     <div class="col-sm-2 slider-bar" slider-bar>
         <h2 ng-click="toPage('home')">LOGO</h2>
         <div class="user-header"></div>
@@ -75,11 +75,14 @@
 
                         <td>${{collection.source.invest || numberToMoney}}</td>
                         <td>{{collection.source.return}}</td>
-                        <td>{{collection.source.cycle}}个月</td>
+                        <td>{{collection.source.cycle}}</td>
                         <td>
                             <div ng-if="collection.source.state == 'enable'">
                                 <p>可选</p>
                                 <div><a ng-click="initOrder(collection.source.id, collection.type, collection.source.invest)" data-toggle="modal" data-target="#myModal">+<span>点击购入</span></a></div>
+                            </div>
+                            <div ng-if="collection.source.state != 'enable'">
+                                <p>不可选</p>
                             </div>
                         </td>
                     </tr>

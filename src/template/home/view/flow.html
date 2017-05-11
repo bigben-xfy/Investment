@@ -1,14 +1,21 @@
 
+<style>
+    .col-sm-2{
+        width: 20%;
+    }
+</style>
+
 <div ng-controller="homeController" ng-init="init()">
     <div class="row header">
         <div class="col-sm-6" style="text-align: left">
             <span ng-click="toPage('home')" style="cursor: pointer;">LOGO</span>
         </div>
         <div class="col-sm-6">
-            <div class="col-sm-3" ng-click="toPage('service')">我们的服务</div>
-            <div class="col-sm-3" ng-click="toPage('flow')">流程介绍</div>
-            <div class="col-sm-3" ng-click="toPage('aboutUs')">关于我们</div>
-            <div class="col-sm-3" ng-click="toPage('property')">我的账户</div>
+            <div class="col-sm-2" ng-click="toPage('service')">我们的服务</div>
+            <div class="col-sm-2" ng-click="toPage('flow')">流程介绍</div>
+            <div class="col-sm-2" ng-click="toPage('question')">常见问题</div>
+            <div class="col-sm-2" ng-click="toPage('aboutUs')">关于我们</div>
+            <div class="col-sm-2" ng-click="toPage('property')">我的账户</div>
         </div>
     </div>
 
@@ -25,24 +32,28 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="home">
-                    <p>在您注册登陆后，会员中心将包含以下主要功能：
-                        投资中心：查看物业信息，项目信息及债券信息
-                        收藏夹：收藏及购买物业，项目或债券
-                        投资流程：随时查看投资流程及指南
-                        交易历史：追踪记录每一笔交易及利润 </p>
-                    <h4>步骤1：注册实名账户，成为会员</h4>
-                    <p>操作指南：输入用户名，密码，电子邮箱，联络电话及真实姓名，快速注册成为会员。</p>
-                    <h4>步骤2：进入投资中心，进行收藏</h4>
-                    <p>Ab Company 专业的团队将严格把控并精心挑选安全可靠的投资项目，实时更新平台以方便投资人选择。</p>
-                    <p>操作指南： 登录个人账户，点击物业/项目/债券信息库 – 浏览所有可购物业/项目/债券信息（包括价格，投资金额，年回报率，投资周期等）。可使用搜索引擎缩小范围，寻找合适您的物业。 “点击收藏”选项把该物业信息存入您的物业收藏夹。</p>
-                    <h4>步骤3：进入收藏夹，进行购买</h4>
-                    <p>Abc Company 将代理且严谨执行一切购买手续，让您购买的省心！安心！</p>
-                    <p>操作指南：决定购买时，打开物业/项目/债券收藏夹 ，选择操作栏下的“点击购买”。 Ab Company收到购买提示后，会有专员联系您进行汇款手续，公司收到汇款后出示收据并上传至交易历史。Ab Company代理完成所有购买手续，上传合同及整套房产资料至交易历史。</p>
-                    <h4>步骤4：进入交易历史，追踪收益</h4>
-                    <p>Abc Company 将为您全权负责房屋的出租，维护及管理，您只需定期收利。</p>
-                    <p>操作指南：购买完成，交易收据将更新到交易历史供客户查看。ABC公司将通过银行转账或支票的方式，定期派息给投资人，交易单据将全部上传到交易历史，用户可轻松追踪每一笔收益。</p>
+                    <div ng-if="flowData" ng-bind-html="flowData | to_trusted"></div>
+                    <div ng-if="!flowData">
+                        <p>在您注册登陆后，会员中心将包含以下主要功能：
+                            投资中心：查看物业信息，项目信息及债券信息
+                            收藏夹：收藏及购买物业，项目或债券
+                            投资流程：随时查看投资流程及指南
+                            交易历史：追踪记录每一笔交易及利润 </p>
+                        <h4>步骤1：注册实名账户，成为会员</h4>
+                        <p>操作指南：输入用户名，密码，电子邮箱，联络电话及真实姓名，快速注册成为会员。</p>
+                        <h4>步骤2：进入投资中心，进行收藏</h4>
+                        <p>Ab Company 专业的团队将严格把控并精心挑选安全可靠的投资项目，实时更新平台以方便投资人选择。</p>
+                        <p>操作指南： 登录个人账户，点击物业/项目/债券信息库 – 浏览所有可购物业/项目/债券信息（包括价格，投资金额，年回报率，投资周期等）。可使用搜索引擎缩小范围，寻找合适您的物业。 “点击收藏”选项把该物业信息存入您的物业收藏夹。</p>
+                        <h4>步骤3：进入收藏夹，进行购买</h4>
+                        <p>Abc Company 将代理且严谨执行一切购买手续，让您购买的省心！安心！</p>
+                        <p>操作指南：决定购买时，打开物业/项目/债券收藏夹 ，选择操作栏下的“点击购买”。 Ab Company收到购买提示后，会有专员联系您进行汇款手续，公司收到汇款后出示收据并上传至交易历史。Ab Company代理完成所有购买手续，上传合同及整套房产资料至交易历史。</p>
+                        <h4>步骤4：进入交易历史，追踪收益</h4>
+                        <p>Abc Company 将为您全权负责房屋的出租，维护及管理，您只需定期收利。</p>
+                        <p>操作指南：购买完成，交易收据将更新到交易历史供客户查看。ABC公司将通过银行转账或支票的方式，定期派息给投资人，交易单据将全部上传到交易历史，用户可轻松追踪每一笔收益。</p>
+                    </div>
+
                 </div>
-                <!--<div role="tabpanel" class="tab-pane" id="profile">的健身房山东矿机发时间段快捷方式</div>-->
+
             </div>
         </div>
     </div>

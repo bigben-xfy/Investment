@@ -1,14 +1,21 @@
 
+<style>
+    .col-sm-2{
+        width: 20%;
+    }
+</style>
+
 <div ng-controller="homeController" ng-init="init()">
     <div class="row header">
         <div class="col-sm-6" style="text-align: left">
             <span ng-click="toPage('home')" style="cursor: pointer;">LOGO</span>
         </div>
         <div class="col-sm-6">
-            <div class="col-sm-3" ng-click="toPage('service')">我们的服务</div>
-            <div class="col-sm-3" ng-click="toPage('flow')">流程介绍</div>
-            <div class="col-sm-3" ng-click="toPage('aboutUs')">关于我们</div>
-            <div class="col-sm-3" ng-click="toPage('property')">我的账户</div>
+            <div class="col-sm-2" ng-click="toPage('service')">我们的服务</div>
+            <div class="col-sm-2" ng-click="toPage('flow')">流程介绍</div>
+            <div class="col-sm-2" ng-click="toPage('question')">常见问题</div>
+            <div class="col-sm-2" ng-click="toPage('aboutUs')">关于我们</div>
+            <div class="col-sm-2" ng-click="toPage('property')">我的账户</div>
         </div>
     </div>
 
@@ -16,15 +23,39 @@
         <div class="service-logo page-logo1" style="height: {{swiperHeight}}px;"></div>
         <div class="service-title">我们的服务</div>
         <div class="tab-container">
-            <!-- Nav tabs -->
+
             <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" onclick="return false" aria-controls="home" role="tab" data-toggle="tab">我们的服务</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div ng-if="serviceData" ng-bind-html="serviceData | to_trusted"></div>
+                    <div ng-if="!serviceData">
+                        <h4>独立屋投资</h4>
+                        <p>ABC Company一直致力于帮助国内个人投资者对美国房地产市场进行投资。通过我们的一站式安全服务，为您精心挑选物业，代理购买, 并以管理，租赁，变卖等形式在美国进行房地产投资。以租金收入为主要利润来源，周期灵活，收益稳定。 客户可在网上平台登录会员账户，实时监控您的产业及利润，让您的投资安全有保障。</p>
+                        <p>投资人通过Abc Company购买独立屋，产权归投资人所有，Abc Company将代理负责房屋的出租、管理和维护，并定期派利给投资人。待投资周期到达后，投资人可选择与Abc Company更新合约继续出租此独立屋或通过Abc Company代理出售独立屋并拿回本金（买入价）。</p>
+
+                        <h4>项目投资</h4>
+                        <p>ABC Company一直致力于帮助国内个人投资者对美国房地产市场进行投资。通过我们的一站式安全服务，为您精心挑选物业，代理购买, 并以管理，租赁，变卖等形式在美国进行房地产投资。以租金收入为主要利润来源，周期灵活，收益稳定。 客户可在网上平台登录会员账户，实时监控您的产业及利润，让您的投资安全有保障。</p>
+                        <p>项目一般为多人共同投资或个人大额投资，投资人将和其他所有投资者共同建立公司进行股权投资，公司股份将按照投资份额分配给所有投资人。此公司将进行特定物业项目的收购，并由Abc Company负责项目的管理、运营及决策。Abc Company将按照股份定期派利给所有股权持有者。在协议的投资周期内此物业不得出售，待投资周期结束，Abc Company将以投资人的原始购入价购回所有股份。</p>
+
+                        <h4>债券投资</h4>
+                        <p>ABC Company一直致力于帮助国内个人投资者对美国房地产市场进行投资。通过我们的一站式安全服务，为您精心挑选物业，代理购买, 并以管理，租赁，变卖等形式在美国进行房地产投资。以租金收入为主要利润来源，周期灵活，收益稳定。 客户可在网上平台登录会员账户，实时监控您的产业及利润，让您的投资安全有保障。</p>
+                        <p>购买Abc Company（上市公司）的债券，根据投资周期，担保每年回报率，到期退还本金。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nav tabs -->
+            <!--<ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#home" onclick="return false" aria-controls="home" role="tab" data-toggle="tab">服务一</a></li>
                 <li role="presentation"><a href="#profile" onclick="return false" aria-controls="profile" role="tab" data-toggle="tab">服务二</a></li>
                 <li role="presentation"><a href="#messages" onclick="return false" aria-controls="messages" role="tab" data-toggle="tab">服务三</a></li>
-            </ul>
+            </ul>-->
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <!--<div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="home">
                     <h4>独立屋投资</h4>
                     <p>ABC Company一直致力于帮助国内个人投资者对美国房地产市场进行投资。通过我们的一站式安全服务，为您精心挑选物业，代理购买, 并以管理，租赁，变卖等形式在美国进行房地产投资。以租金收入为主要利润来源，周期灵活，收益稳定。 客户可在网上平台登录会员账户，实时监控您的产业及利润，让您的投资安全有保障。</p>
@@ -40,7 +71,7 @@
                     <p>ABC Company一直致力于帮助国内个人投资者对美国房地产市场进行投资。通过我们的一站式安全服务，为您精心挑选物业，代理购买, 并以管理，租赁，变卖等形式在美国进行房地产投资。以租金收入为主要利润来源，周期灵活，收益稳定。 客户可在网上平台登录会员账户，实时监控您的产业及利润，让您的投资安全有保障。</p>
                     <p>购买Abc Company（上市公司）的债券，根据投资周期，担保每年回报率，到期退还本金。</p>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 

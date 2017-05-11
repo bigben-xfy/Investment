@@ -297,8 +297,9 @@
     font-weight: bolder;
     position: absolute;
     left: 12%;
-    bottom: 530px;
+    /*bottom: 530px;*/
     color: #DA4D30;
+    top: 300px;
 }
 
 

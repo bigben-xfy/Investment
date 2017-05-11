@@ -26,6 +26,10 @@
 		            url: '/aboutUs',
 		            templateUrl: 'src/template/home/view/aboutUs.html?v' + (+new Date())
 	            })
+	            .state('question', {
+		            url: '/question',
+		            templateUrl: 'src/template/home/view/question.html?v' + (+new Date())
+	            })
 	            .state('login', {
 		            url: '/login',
 		            templateUrl: 'src/template/home/view/login.html?v' + (+new Date())
@@ -42,17 +46,42 @@
 		return $resource("",{},
 			{
 				register: {method:'post', url: Constants.host + '/api/signup'},
-				login: {method:'post', url: Constants.host + '/api/login'}
+				login: {method:'post', url: Constants.host + '/api/login'},
+				getArticle: {method: 'get', url: Constants.host + '/api/articles'},
+				getPassword: {method: 'get', url: Constants.host + '/api/password/reset'}
 			})
 	}]);
   
-    app.controller('homeController',['$scope','$location','$rootScope',function($scope,$location,$rootScope){
+    app.controller('homeController',['$scope','$location','$rootScope', 'home_api', function($scope,$location,$rootScope,home_api){
 	    $scope.swiperArr = [1, 2, 3];
      
 	    $scope.init = function () {
 		    $scope.swiperHeight = window.innerWidth / 2.5;
 		
 		    $scope.maskHeight = window.innerHeight - 50;
+		
+		    home_api.getArticle({
+			    page: 1,
+			    limit: 10
+		    }, function (result) {
+			    _.each(result.data, function (item, key) {
+				    switch (item.type) {
+					    case '常见问题':
+					    	$scope.questionData = item.content;
+					    	break;
+					    case '我们的服务':
+						    $scope.serviceData = item.content;
+						    break;
+					    case '流程介绍':
+						    $scope.flowData = item.content;
+						    break;
+					    case '关于我们':
+						    $scope.aboutData = item.content;
+						    break;
+					    
+				    }
+			    })
+		    })
 	    }
 	    
 	    $scope.toPage = function (url) {
@@ -110,6 +139,14 @@
 			});
 			$scope.toPage('property');*/
 		}
+		
+		$scope.getFindPassword = function () {
+			$.ajax({
+				type: 'GET',
+				url: 'http://abc.deexcul.com/api/password/reset?email=benxyf@163.com'
+			})
+		}
+		
 	}]);
 	
 	app.controller('registerController',['$scope','$location','$rootScope', 'home_api',function($scope,$location,$rootScope,home_api){

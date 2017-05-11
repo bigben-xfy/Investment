@@ -70,6 +70,10 @@
         margin: 0 10px;
         font-size: 12px;
     }
+
+    .col-sm-2{
+        width: 20%;
+    }
 </style>
 
 <div ng-controller="registerController" ng-init="init()" style="position: relative; overflow: auto; zoom: 1;">
@@ -78,10 +82,11 @@
             <span ng-click="toPage('home')" style="cursor: pointer;">LOGO</span>
         </div>
         <div class="col-sm-6">
-            <div class="col-sm-3" ng-click="toPage('service')">我们的服务</div>
-            <div class="col-sm-3" ng-click="toPage('flow')">流程介绍</div>
-            <div class="col-sm-3" ng-click="toPage('aboutUs')">关于我们</div>
-            <div class="col-sm-3" ng-click="toPage('property')">我的账户</div>
+            <div class="col-sm-2" ng-click="toPage('service')">我们的服务</div>
+            <div class="col-sm-2" ng-click="toPage('flow')">流程介绍</div>
+            <div class="col-sm-2" ng-click="toPage('question')">常见问题</div>
+            <div class="col-sm-2" ng-click="toPage('aboutUs')">关于我们</div>
+            <div class="col-sm-2" ng-click="toPage('property')">我的账户</div>
         </div>
     </div>
 

@@ -1,0 +1,54 @@
+
+<style>
+    .col-sm-2{
+        width: 20%;
+    }
+</style>
+
+<div ng-controller="homeController" ng-init="init()">
+    <div class="row header">
+        <div class="col-sm-6" style="text-align: left">
+            <span ng-click="toPage('home')" style="cursor: pointer;">LOGO</span>
+        </div>
+        <div class="col-sm-6">
+            <div class="col-sm-2" ng-click="toPage('service')">我们的服务</div>
+            <div class="col-sm-2" ng-click="toPage('flow')">流程介绍</div>
+            <div class="col-sm-2" ng-click="toPage('question')">常见问题</div>
+            <div class="col-sm-2" ng-click="toPage('aboutUs')">关于我们</div>
+            <div class="col-sm-2" ng-click="toPage('property')">我的账户</div>
+        </div>
+    </div>
+
+    <div style="position: relative;">
+        <div class="service-logo page-logo2" style="height: {{swiperHeight}}px;"></div>
+        <div class="service-title">常见问题</div>
+        <div class="tab-container">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" onclick="return false" aria-controls="home" role="tab" data-toggle="tab">常见问题</a></li>
+                <!--<li role="presentation"><a href="#profile" onclick="return false" aria-controls="profile" role="tab" data-toggle="tab">风险揭示</a></li>-->
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div ng-bind-html="questionData | to_trusted"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

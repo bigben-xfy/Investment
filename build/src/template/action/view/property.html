@@ -27,11 +27,11 @@
             </div>
 
             <li data-toggle="collapse" data-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
-                投资中心
+                收藏夹
                 <span class="glyphicon glyphicon-chevron-left" style="float: right; margin-right: 10px;"></span>
             </li>
             <div class="collapse" id="collapseExampleTwo">
-                <li ng-click="toPage('collectionTwo')">物业收藏夹</li>
+                <li ng-click="toPage('collection')">物业收藏夹</li>
                 <li ng-click="toPage('collectionTwo')">项目收藏夹</li>
                 <li ng-click="toPage('collectionThree')">债券收藏夹</li>
             </div>
@@ -98,9 +98,9 @@
                 <table class="table table-bordered">
                     <tr>
                         <td>物业</td>
-                        <td>价格(万美元)</td>
-                        <td>投资金额(万美元)</td>
-                        <td>租金(万美元)</td>
+                        <td>价格(美元)</td>
+                        <td>投资金额(美元)</td>
+                        <td>租金(美元)</td>
                         <td>年回报率</td>
                         <td>状态</td>
                         <td>操作</td>
@@ -248,7 +248,7 @@
                     <p>建筑年份:{{propertyDetail.age}}</p>
                     <p>城市:{{propertyDetail.city}}</p>
                     <p>环境评估等级:{{propertyDetail.environment_level}}</p>
-                    <p>地址:{{property.address}}</p>
+                    <p>地址:{{propertyDetail.address}}</p>
                 </div>
                 <!--<div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

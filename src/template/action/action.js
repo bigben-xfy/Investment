@@ -69,7 +69,8 @@
 				saveUserInfo: {method: 'post', url: Constants.host + '/api/user'},
 				getPropertyCollection: {method:"get", url: Constants.host + '/api/collect/properties'},
 				getInvestmentCollection: {method:"get", url: Constants.host + '/api/collect/investments'},
-				getDebentureCollection: {method:"get", url: Constants.host + '/api/collect/products'}
+				getDebentureCollection: {method:"get", url: Constants.host + '/api/collect/products'},
+				getPropertyCity: {method:"get", url: Constants.host + '/api/properties/city'}
 			})
 	}]);
   
@@ -90,9 +91,19 @@
 			if(!$scope.userInfo || !$scope.userInfo.token) {
 				sessionStorage.removeItem('userInfo');
 				$scope.toPage('login');
+				return false;
 			}
 			
-			$scope.cityArr = [
+			action_api.getPropertyCity({
+				
+			}, function (result) {
+				$scope.cityArr = _.uniq(result.data);
+				$scope.cityArr = _.compact($scope.cityArr);
+				$scope.cityArr.unshift('');
+				$scope.city = $scope.cityArr[0];
+			});
+			
+			/*$scope.cityArr = [
 				'',
 				'Auckland',
 				'Cleveland',
@@ -102,7 +113,7 @@
 				'San Francisco',
 				'Seattle',
 				'Shreveport'
-			]
+			]*/
 			$scope.priceArr = [
 				{name: '不限', value: ''},
 				{name: '3万以下', value: '0-30000'},
@@ -122,7 +133,7 @@
 				{name: '土地', value: 'land'},
 				{name: '农场', value: 'farm'}
 			];
-			$scope.city = $scope.cityArr[0];
+			
 			$scope.price = $scope.priceArr[0];
 			$scope.room = $scope.roomArr[0];
 			$scope.house = $scope.houseArr[0];

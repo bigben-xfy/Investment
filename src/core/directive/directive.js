@@ -18,7 +18,7 @@
 						speed: 600,
 						initialSlide: 0,
 						loop: true,
-						autoplay: 30000
+						autoplay: 3000
 					})
 					
 				},0)

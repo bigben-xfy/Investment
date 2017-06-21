@@ -60,7 +60,7 @@
                         <td style="cursor: pointer;" ng-click="toOrderDetail(history.id)">
                             {{history.name}}
                         </td>
-                        <td>${{history.invest || numberToMoney}}</td>
+                        <td>{{history.invest | numberToMoney}}</td>
                         <td>{{history.return}}</td>
                         <td>{{history.created_at}}</td>
                         <td style="font-size: 12px; text-align: left;">

@@ -206,6 +206,7 @@
 
 .detail-img{
     width: 350px;
+    height: 225px;
     margin: auto;
 }
 
@@ -215,6 +216,14 @@
 
 .slider-bar h2{
     cursor: pointer;
+}
+
+.bottom-logo{
+    background-image: url("../assets/images/logo.png");
+    background-size: 100% 100%;
+    width: 200px;
+    height: 40px;
+    margin:  20px auto;
 }
 
 

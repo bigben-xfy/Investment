@@ -1,7 +1,7 @@
 
 <div ng-controller="propertyController" ng-init="init()" class="clear-fix">
     <div class="col-sm-2 slider-bar" slider-bar>
-        <h2 ng-click="toPage('home')">LOGO</h2>
+        <div class="header-logo" style="margin: 10px auto;" ng-click="toPage('home')"></div>
         <div class="user-header"></div>
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -119,9 +119,9 @@
                             </div>
                             <div class="property-address">地址:{{property.address}}</div>
                         </td>
-                        <td>${{property.price || numberToMoney}}</td>
-                        <td>${{property.invest || numberToMoney}}</td>
-                        <td>${{property.rend || numberToMoney}}</td>
+                        <td>{{property.price | numberToMoney}}</td>
+                        <td>{{property.invest | numberToMoney}}</td>
+                        <td>{{property.rend | numberToMoney}}</td>
                         <td>{{property.return}}</td>
                         <td>
                             <p ng-if="property.state == 'enable'">可选</p>
@@ -221,7 +221,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">投资金额(美金):</label>
-                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.money">
+                            <input type="text" class="form-control" ng-model="orderData.invest">
                         </div>
                     </form>
                 </div>
@@ -242,8 +242,26 @@
                     <h4 class="modal-title" id="myModalLabel">物业详情</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="detail-img"><img ng-src="{{propertyDetail.pics[0]}}"></div>
+                    <!--<div class="detail-img">
+                        <img ng-src="{{propertyDetail.pics[0]}}">
+                    </div>-->
+
+                    <div class="detail-img">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" ng-repeat="image in propertyDetail.pics track by $index">
+                                    <img ng-src="{{image}}" style="width: 350px; height: 225px;">
+                                </div>
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
                     <p>房间数:{{propertyDetail.room}}</p>
+                    <p>卫生间数:{{propertyDetail.washroom}}</p>
                     <p>总面积:{{propertyDetail.area}}</p>
                     <p>建筑年份:{{propertyDetail.age}}</p>
                     <p>城市:{{propertyDetail.city}}</p>

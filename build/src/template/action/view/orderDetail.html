@@ -1,7 +1,7 @@
 
 <div ng-controller="orderController" ng-init="init()" class="clear-fix">
     <div class="col-sm-2 slider-bar" slider-bar>
-        <h2 ng-click="toPage('home')">LOGO</h2>
+        <div class="header-logo" style="margin: 10px auto;" ng-click="toPage('home')"></div>
         <div class="user-header"></div>
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +60,7 @@
                         <td>
                             {{orderDetail.name}}
                         </td>
-                        <td>${{orderDetail.invest || numberToMoney}}</td>
+                        <td>{{orderDetail.invest | numberToMoney}}</td>
                         <td>{{orderDetail.return}}</td>
                         <td>{{orderDetail.created_at}}</td>
                     </tr>

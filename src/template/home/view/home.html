@@ -8,7 +8,7 @@
 <div ng-controller="homeController" ng-init="init()" style="position: relative; overflow: auto; zoom: 1;">
     <div class="row header">
         <div class="col-sm-6" style="text-align: left">
-            <span ng-click="toPage('home')" style="cursor: pointer;">LOGO</span>
+            <div ng-click="toPage('home')" class="header-logo"></div>
         </div>
         <div class="col-sm-6">
             <div class="col-sm-2" ng-click="toPage('service')">我们的服务</div>
@@ -42,6 +42,7 @@
     <div class="row" style="position: relative;">
         <div class="home-mask"></div>
         <div class="home-container" style="padding: 40px 0;">
+
             <div class="col-sm-3">
                 <div class="to-page">
                     <div class="page-logo page-logo1"></div>
@@ -98,16 +99,27 @@
         <div class="home-container">
             <h3>公司快讯</h3>
             <p>物业信息及日常信息</p>
-            <div class="col-sm-4">
+
+            <div class="col-sm-4" ng-repeat="news in newsData">
+                <div class="news-container">
+                    <div ng-if="!news.cover" class="news-logo"></div>
+                    <div ng-if="news.cover" class="news-logo" style="background-image: url({{news.cover}})"></div>
+                    <div class="content" style="overflow: hidden">
+                        <h4>{{news.title}}</h4>
+                        <!--<p>{{news.description || '暂无'}}</p>-->
+                        <div ng-bind-html="news.description | to_trusted"></div>
+                        <!--<a href="http://us.fang.com/news/25176479.htm">阅读更多</a>-->
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="col-sm-4">
                 <div class="news-container">
                     <div class="news-logo"></div>
                     <div class="content">
-                        <h4>标题</h4>
-                        <p>Lorem ipsum dolor sit
-                            amet, consectetuer adipi-
-                            scing elit, sed diam
-                            nonummy nibh euismod tin</p>
-                        <a>阅读更多</a>
+                        <h4>休斯顿房产好卖好租</h4>
+                        <p>分析人士认为，未来的石油热潮将集中在这四个石油热点：德克萨斯州的鹰福特和二叠纪盆地，北达科他州的巴肯和科罗拉多州的丹佛盆地。</p>
+                        <a href="http://us.fang.com/news/25176479.htm">阅读更多</a>
                     </div>
                 </div>
             </div>
@@ -115,12 +127,9 @@
                 <div class="news-container" style="margin: auto;">
                     <div class="news-logo"></div>
                     <div class="content">
-                        <h4>标题</h4>
-                        <p>Lorem ipsum dolor sit
-                            amet, consectetuer adipi-
-                            scing elit, sed diam
-                            nonummy nibh euismod tin</p>
-                        <a>阅读更多</a>
+                        <h4>选奥兰多高性价比房</h4>
+                        <p>“奥兰多，西雅图和迈阿密等市场的高就业增长率以及奥尔巴尼和布法罗的高性价比使这些市场成为深受千禧一代欢迎的市场”，美国一家房地产在线网站的经济研究员说道，“但是真正比较重要的是所有这些市场的千禧一代群体数量较多，这必然意味着千禧一代购房者的人数也会相对较多”。</p>
+                        <a href="http://us.fang.com/news/25199050.htm">阅读更多</a>
                     </div>
                 </div>
             </div>
@@ -128,15 +137,12 @@
                 <div class="news-container">
                     <div class="news-logo"></div>
                     <div class="content">
-                        <h4>标题</h4>
-                        <p>Lorem ipsum dolor sit
-                            amet, consectetuer adipi-
-                            scing elit, sed diam
-                            nonummy nibh euismod tin</p>
-                        <a>阅读更多</a>
+                        <h4>洛杉矶市区公寓￥524万送车位!</h4>
+                        <p>别墅还是公寓呢？虽然公寓不如别墅占地面积广，但是其租赁群体是很庞大的。小户型公寓可以出租给单身工作者/留学生、情侣或夫妻、退休老人等；卧室较多的公寓，可以出租给家庭……等等。不得不说，的公寓，是客户很好的选择。</p>
+                        <a href="http://us.fang.com/news/25126882.htm">阅读更多</a>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 

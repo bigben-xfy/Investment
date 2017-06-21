@@ -60,9 +60,10 @@
 		
 		    $scope.maskHeight = window.innerHeight - 50;
 		
+		    $scope.newsData = []
 		    home_api.getArticle({
 			    page: 1,
-			    limit: 10
+			    limit: 100
 		    }, function (result) {
 			    _.each(result.data, function (item, key) {
 				    switch (item.type) {
@@ -77,6 +78,9 @@
 						    break;
 					    case '关于我们':
 						    $scope.aboutData = item.content;
+						    break;
+					    case '公司快讯':
+						    if($scope.newsData.length < 3) $scope.newsData.push(item);
 						    break;
 					    
 				    }
@@ -97,6 +101,7 @@
 			
 			$scope.bgHeight = window.outerHeight - 50;
 			$scope.email = localStorage.getItem('userName');
+			$scope.passwordEmail = ''
 		}
 		
 		$scope.toPage = function (url) {
@@ -143,7 +148,14 @@
 		$scope.getFindPassword = function () {
 			$.ajax({
 				type: 'GET',
-				url: 'http://abc.deexcul.com/api/password/reset?email=benxyf@163.com'
+				url: 'http://abc.deexcul.com/api/password/reset?email=' + encodeURI($scope.passwordEmail),
+				dataType: "json",
+				success: function (result) {
+					alert('重置')
+				},
+				error: function (error) {
+					alert(error)
+				}
 			})
 		}
 		

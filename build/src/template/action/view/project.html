@@ -1,7 +1,7 @@
 
 <div ng-controller="investmentController" ng-init="init()" class="clear-fix">
     <div class="col-sm-2 slider-bar" slider-bar>
-        <h2 ng-click="toPage('home')">LOGO</h2>
+        <div class="header-logo" style="margin: 10px auto;" ng-click="toPage('home')"></div>
         <div class="user-header"></div>
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,8 +69,8 @@
                             <div class="property-address">项目概述:{{investment.type}}</div>
                             <div class="property-address">地址:{{investment.address}}</div>
                         </td>
-                        <td>${{investment.price || numberToMoney}}</td>
-                        <td>${{investment.invest || numberToMoney}}</td>
+                        <td>{{investment.price | numberToMoney}}</td>
+                        <td>{{investment.invest | numberToMoney}}</td>
                         <td>{{investment.return}}</td>
                         <td>{{investment.cycle}}</td>
                         <td>
@@ -171,7 +171,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">投资金额(美金):</label>
-                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.money">
+                            <input type="text" class="form-control" ng-model="orderData.invest">
                         </div>
                     </form>
                 </div>
@@ -192,7 +192,22 @@
                     <h4 class="modal-title" id="myModalLabel">物业详情</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="detail-img"><img ng-src="{{investmentDetail.pics[0]}}"></div>
+                    <!--<div class="detail-img"><img ng-src="{{investmentDetail.pics[0]}}"></div>-->
+
+                    <div class="detail-img">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" ng-repeat="image in investmentDetail.pics track by $index">
+                                    <img ng-src="{{image}}" style="width: 350px; height: 225px;">
+                                </div>
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
                     <p>年份:{{investmentDetail.age}}</p>
                     <p>城市:{{investmentDetail.city}}</p>
                     <p>环境评估等级:{{investmentDetail.environment_level}}</p>

@@ -162,6 +162,7 @@
 		}
 		
 		$scope.initOrder = function (id, type, money) {
+			$scope.overInvest = money;
 			//$scope.orderData = {}
 			$scope.orderData = {
 				target_id: id,
@@ -175,14 +176,22 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money,
+				invest: money,
 				token: $scope.userInfo.token
 			}
 		}
 		
 		$scope.postOrder = function () {
+			var re = new RegExp('^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$');
+			
 			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
+				return false;
+			}else if($scope.orderData < $scope.overInvest){
+				alert('投资金额不能低于起投金额！');
+				return false;
+			}else if(!re.test($scope.orderData.email)){
+				alert('邮箱格式错误！');
 				return false;
 			}
 			action_api.postOrder($scope.orderData, function (result) {
@@ -271,7 +280,27 @@
 			}, function (result) {
 				
 			})*/
+			$scope.propertyDetail = {};
 			$scope.propertyDetail = $scope.propertyList[index]
+			
+			setTimeout(function () {
+				if($scope.mySwiper) {
+					$scope.mySwiper.update();
+					$scope.mySwiper.reLoop();
+				}else {
+					$scope.mySwiper = new Swiper('.swiper-container', {
+						pagination: '.swiper-pagination',
+						paginationClickable: true,
+						spaceBetween: 100,
+						speed: 600,
+						loop: true,
+						autoplay: 3000,
+						prevButton: '.swiper-button-prev',
+						nextButton: '.swiper-button-next',
+					});
+				}
+				
+			}, 300);
 		}
 		
 		$scope.toPage = function (url) {
@@ -338,9 +367,11 @@
 				//$scope.properrtyCount = result.pagination.total;
 			});*/
 			$scope.orderData = {}
+			
 		}
 		
 		$scope.initOrder = function (id, type, money) {
+			$scope.overInvest = money;
 			//$scope.orderData = {}
 			$scope.orderData = {
 				target_id: id,
@@ -354,7 +385,7 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money,
+				invest: money,
 				token: $scope.userInfo.token
 			}
 		}
@@ -362,6 +393,12 @@
 		$scope.postOrder = function () {
 			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
+				return false;
+			}else if($scope.orderData < $scope.overInvest){
+				alert('投资金额不能低于起投金额！');
+				return false;
+			}else if(!re.test($scope.orderData.email)){
+				alert('邮箱格式错误！');
 				return false;
 			}
 			action_api.postOrder($scope.orderData, function (result) {
@@ -416,6 +453,25 @@
 			 
 			 })*/
 			$scope.investmentDetail = $scope.investmentList[index]
+			
+			setTimeout(function () {
+				if($scope.mySwiper) {
+					$scope.mySwiper.update();
+					$scope.mySwiper.reLoop();
+				}else {
+					$scope.mySwiper = new Swiper('.swiper-container', {
+						pagination: '.swiper-pagination',
+						paginationClickable: true,
+						spaceBetween: 100,
+						speed: 600,
+						loop: true,
+						autoplay: 3000,
+						prevButton: '.swiper-button-prev',
+						nextButton: '.swiper-button-next',
+					});
+				}
+				
+			}, 300);
 		}
 		
 		$scope.collectInvestment = function (id, index, isDelete) {
@@ -499,6 +555,7 @@
 		}
 		
 		$scope.initOrder = function (id, type, money) {
+			$scope.overInvest = money;
 			//$scope.orderData = {}
 			$scope.orderData = {
 				target_id: id,
@@ -512,7 +569,7 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money,
+				invest: money,
 				token: $scope.userInfo.token
 			}
 		}
@@ -520,6 +577,12 @@
 		$scope.postOrder = function () {
 			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
+				return false;
+			}else if($scope.orderData < $scope.overInvest){
+				alert('投资金额不能低于起投金额！');
+				return false;
+			}else if(!re.test($scope.orderData.email)){
+				alert('邮箱格式错误！');
 				return false;
 			}
 			action_api.postOrder($scope.orderData, function (result) {
@@ -655,6 +718,7 @@
 		}
 		
 		$scope.initOrder = function (id, type, money) {
+			$scope.overInvest = money;
 			//$scope.orderData = {}
 			$scope.orderData = {
 				target_id: id,
@@ -668,7 +732,7 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money,
+				invest: money,
 				token: $scope.userInfo.token
 			}
 			/*$scope.orderData.target_id = id;
@@ -678,6 +742,12 @@
 		$scope.postOrder = function () {
 			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
+				return false;
+			}else if($scope.orderData < $scope.overInvest){
+				alert('投资金额不能低于起投金额！');
+				return false;
+			}else if(!re.test($scope.orderData.email)){
+				alert('邮箱格式错误！');
 				return false;
 			}
 			action_api.postOrder($scope.orderData, function (result) {
@@ -795,6 +865,7 @@
 		}
 		
 		$scope.initOrder = function (id, type, money) {
+			$scope.overInvest = money;
 			//$scope.orderData = {}
 			$scope.orderData = {
 				target_id: id,
@@ -808,7 +879,7 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money,
+				invest: money,
 				token: $scope.userInfo.token
 			}
 			/*$scope.orderData.target_id = id;
@@ -827,6 +898,12 @@
 		$scope.postOrder = function () {
 			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
+				return false;
+			}else if($scope.orderData < $scope.overInvest){
+				alert('投资金额不能低于起投金额！');
+				return false;
+			}else if(!re.test($scope.orderData.email)){
+				alert('邮箱格式错误！');
 				return false;
 			}
 			action_api.postOrder($scope.orderData, function (result) {
@@ -944,6 +1021,7 @@
 		}
 		
 		$scope.initOrder = function (id, type, money) {
+			$scope.overInvest = money;
 			//$scope.orderData = {}
 			$scope.orderData = {
 				target_id: id,
@@ -957,7 +1035,7 @@
 				province: '',
 				nation: '',
 				email: '',
-				money: money,
+				invest: money,
 				token: $scope.userInfo.token
 			}
 			/*$scope.orderData.target_id = id;
@@ -967,6 +1045,12 @@
 		$scope.postOrder = function () {
 			if(!$scope.orderData.name || !$scope.orderData.email){
 				alert('姓名和email不能为空！');
+				return false;
+			}else if($scope.orderData < $scope.overInvest){
+				alert('投资金额不能低于起投金额！');
+				return false;
+			}else if(!re.test($scope.orderData.email)){
+				alert('邮箱格式错误！');
 				return false;
 			}
 			action_api.postOrder($scope.orderData, function (result) {
@@ -1086,7 +1170,8 @@
 			action_api.getHistory({
 				page: pageIndex,
 				limit: PageSize,
-				token: $scope.userInfo.token
+				token: $scope.userInfo.token,
+				state: 0
 				//sort: 'price-asc'
 			}, function (result) {
 				$scope.historyList = result.data;
@@ -1190,8 +1275,9 @@
 			action_api.getHistory({
 				page: pageIndex,
 				limit: PageSize,
-				has_type: '交易确认',
-				token: $scope.userInfo.token
+				//has_type: '交易确认',
+				token: $scope.userInfo.token,
+				state: 1
 				//sort: 'price-asc'
 			}, function (result) {
 				$scope.historyList = result.data;

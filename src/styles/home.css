@@ -207,9 +207,17 @@
 
 .news-container{
     width: 300px;
+    height: 600px;
     border: #E04B2C solid 1px;
     overflow: auto;
     zoom: 1;
+    position: relative;
+}
+
+.news-container a{
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
 }
 
 .news-container .content{
@@ -365,6 +373,24 @@
     margin-right: 15px;
     cursor: pointer;
 }
+
+.header-logo{
+    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    background-size: 100% 100%;
+    background-image: url("../assets/images/logo.png");
+    margin: 10px 60px;
+}
+
+.bottom-logo{
+    background-image: url("../assets/images/logo.png");
+    background-size: 100% 100%;
+    width: 300px;
+    height: 60px;
+    margin: auto;
+}
+
 
 
 

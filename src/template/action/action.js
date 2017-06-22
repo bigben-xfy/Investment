@@ -117,10 +117,10 @@
 			$scope.priceArr = [
 				{name: '不限', value: ''},
 				{name: '3万以下', value: '0-30000'},
-				{name: '3-6万', value: '30000-60000'},
-				{name: '6-9万', value: '60000-90000'},
-				{name: '9-12万', value: '90000-1200000'},
-				{name: '12万以上', value: '120000'}
+				{name: '3-6万', value: '3-6'},
+				{name: '6-9万', value: '6-9'},
+				{name: '9-12万', value: '9-12'},
+				{name: '12万以上', value: '12'}
 			];
 			$scope.roomArr = ['','1','1+','2','2+','3','3+','4','4+','5','5+'];
 			$scope.houseArr = [
@@ -147,6 +147,8 @@
 				name: $scope.userInfo.name,
 				cellphone: $scope.userInfo.phone
 			}
+			
+			$scope.userEmail = window.localStorage.getItem('userName');
 			
 			/*$scope.collectionList = window.localStorage.getItem('collectionList');
 			if($scope.collectionList) {
@@ -175,7 +177,7 @@
 				city: '',
 				province: '',
 				nation: '',
-				email: '',
+				email: $scope.userEmail,
 				invest: money,
 				token: $scope.userInfo.token
 			}
@@ -368,6 +370,7 @@
 			});*/
 			$scope.orderData = {}
 			
+			$scope.userEmail = window.localStorage.getItem('userName');
 		}
 		
 		$scope.initOrder = function (id, type, money) {
@@ -384,7 +387,7 @@
 				city: '',
 				province: '',
 				nation: '',
-				email: '',
+				email: $scope.userEmail,
 				invest: money,
 				token: $scope.userInfo.token
 			}
@@ -552,6 +555,8 @@
 				//$scope.properrtyCount = result.pagination.total;
 			});*/
 			$scope.orderData = {}
+			
+			$scope.userEmail = window.localStorage.getItem('userName');
 		}
 		
 		$scope.initOrder = function (id, type, money) {
@@ -568,7 +573,7 @@
 				city: '',
 				province: '',
 				nation: '',
-				email: '',
+				email: $scope.userEmail,
 				invest: money,
 				token: $scope.userInfo.token
 			}
@@ -706,6 +711,8 @@
 				$scope.collectionList = result.data;
 			});*/
 			$scope.orderData = {}
+			
+			$scope.userEmail = window.localStorage.getItem('userName');
 		}
 		
 		$scope.getPropertyDetail = function (id, index) {
@@ -731,7 +738,7 @@
 				city: '',
 				province: '',
 				nation: '',
-				email: '',
+				email: $scope.userEmail,
 				invest: money,
 				token: $scope.userInfo.token
 			}
@@ -862,6 +869,8 @@
 			 $scope.collectionList = result.data;
 			 });*/
 			$scope.orderData = {}
+			
+			$scope.userEmail = window.localStorage.getItem('userName');
 		}
 		
 		$scope.initOrder = function (id, type, money) {
@@ -878,7 +887,7 @@
 				city: '',
 				province: '',
 				nation: '',
-				email: '',
+				email: $scope.userEmail,
 				invest: money,
 				token: $scope.userInfo.token
 			}
@@ -1018,6 +1027,8 @@
 			 $scope.collectionList = result.data;
 			 });*/
 			$scope.orderData = {}
+			
+			$scope.userEmail = window.localStorage.getItem('userName');
 		}
 		
 		$scope.initOrder = function (id, type, money) {
@@ -1034,7 +1045,7 @@
 				city: '',
 				province: '',
 				nation: '',
-				email: '',
+				email: $scope.userEmail,
 				invest: money,
 				token: $scope.userInfo.token
 			}

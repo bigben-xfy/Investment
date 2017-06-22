@@ -23,7 +23,7 @@
             <div class="collapse" id="collapseExample">
                 <li ng-click="toPage('property')">寻找物业</li>
                 <li ng-click="toPage('project')">寻找项目</li>
-                <li ng-click="toPage('debenture')">寻找债券投资</li>
+                <li ng-click="toPage('debenture')">寻找项目投资</li>
             </div>
 
             <li data-toggle="collapse" data-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
@@ -33,7 +33,7 @@
             <div class="collapse collapse in" id="collapseExampleTwo">
                 <li class="active">物业收藏夹</li>
                 <li ng-click="toPage('collectionTwo')">项目收藏夹</li>
-                <li ng-click="toPage('collectionThree')">债券收藏夹</li>
+                <li ng-click="toPage('collectionThree')">项目投资收藏夹</li>
             </div>
 
             <li ng-click="toPage('transactionHistory')">已申请购买</li>
@@ -181,7 +181,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">邮箱:</label>
-                            <input type="text" class="form-control" ng-model="orderData.email">
+                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.email">
                         </div>
                         <div class="form-group">
                             <label class="control-label">购入项目编号:</label>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">投资金额(美金):</label>
-                            <input type="text" class="form-control" ng-model="orderData.invest">
+                            <input type="text" class="form-control" readonly="readonly" ng-model="orderData.invest">
                         </div>
                     </form>
                 </div>

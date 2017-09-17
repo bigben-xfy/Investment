@@ -7,7 +7,7 @@
 	
 	angular.module('website')
 		.constant('Constants', {
-			host: "http://abc.deexcul.com"
+			host: "http://futonginvestment.com/admin/public"
 		});
 }());
 

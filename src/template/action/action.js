@@ -1214,13 +1214,14 @@
 			$scope.getHistoryData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
-		$scope.toOrderDetail = function (id) {
+		$scope.toOrderDetail = function (id, type) {
 			/*action_api.getOrderDetail({
 				id: id
 			}, function (result) {
 			
 			})*/
 			window.localStorage.setItem('orderId', id);
+			window.localStorage.setItem('typeNum', type);
 			$location.path('orderDetail');//.search({id: id});
 		}
 		
@@ -1320,9 +1321,10 @@
 			$scope.getHistoryData($scope.pageIndex - 1, $scope.pageSize);
 		}
 		
-		$scope.toOrderDetail = function (id) {
+		$scope.toOrderDetail = function (id, type) {
 			
 			window.localStorage.setItem('orderId', id);
+			window.localStorage.setItem('typeNum', type);
 			$location.path('orderDetail');//.search({id: id});
 		}
 		
@@ -1376,6 +1378,7 @@
 			}
 			
 			$scope.orderId = window.localStorage.getItem('orderId');
+			$scope.typeNum = window.localStorage.getItem('typeNum');
 			action_api.getOrderDetail({
 				id: $scope.orderId,
 				token: $scope.userInfo.token

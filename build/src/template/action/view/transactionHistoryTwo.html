@@ -55,7 +55,7 @@
                         <td>交易日期</td>
                         <td>相关文件</td>
                     </tr>
-                    <tr ng-repeat="history in historyList track by $index" ng-click="toOrderDetail(history.id)">
+                    <tr ng-repeat="history in historyList track by $index" ng-click="toOrderDetail(history.id, 2)">
                         <td>{{history.id}}</td>
                         <td style="cursor: pointer;">
                             {{history.name}}

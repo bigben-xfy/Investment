@@ -36,8 +36,8 @@
                 <li ng-click="toPage('collectionThree')">债券收藏夹</li>
             </div>
 
-            <li class="active" ng-click="toPage('transactionHistory')">已申请购买</li>
-            <li ng-click="toPage('transactionHistoryTwo')">已购买清单</li>
+            <li ng-class="{active : typeNum == '1'}" ng-click="toPage('transactionHistory')">已申请购买</li>
+            <li ng-class="{active : typeNum == '2'}" ng-click="toPage('transactionHistoryTwo')">已购买清单</li>
             <li ng-click="toPage('flow')">详细流程指南</li>
         </ul>
     </div>

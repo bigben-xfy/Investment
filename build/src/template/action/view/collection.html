@@ -23,7 +23,7 @@
             <div class="collapse" id="collapseExample">
                 <li ng-click="toPage('property')">寻找物业</li>
                 <li ng-click="toPage('project')">寻找项目</li>
-                <li ng-click="toPage('debenture')">寻找项目投资</li>
+                <li ng-click="toPage('debenture')">寻找产品</li>
             </div>
 
             <li data-toggle="collapse" data-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
@@ -33,7 +33,7 @@
             <div class="collapse collapse in" id="collapseExampleTwo">
                 <li class="active">物业收藏夹</li>
                 <li ng-click="toPage('collectionTwo')">项目收藏夹</li>
-                <li ng-click="toPage('collectionThree')">项目投资收藏夹</li>
+                <li ng-click="toPage('collectionThree')">产品收藏夹</li>
             </div>
 
             <li ng-click="toPage('transactionHistory')">已申请购买</li>
@@ -127,7 +127,8 @@
                     <p>建筑年份:{{propertyDetail.age}}</p>
                     <p>城市:{{propertyDetail.city}}</p>
                     <p>环境评估等级:{{propertyDetail.environment_level}}</p>
-                    <p>地址:{{property.address}}</p>
+                    <p>地址:{{propertyDetail.address}}</p>
+                    <p>描述:{{propertyDetail.content || '无'}}</p>
                 </div>
                 <!--<div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
